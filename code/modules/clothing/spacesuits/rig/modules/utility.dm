@@ -16,6 +16,7 @@
  * /obj/item/rig_module/device/paperdispenser
  * /obj/item/rig_module/device/pen
  * /obj/item/rig_module/device/stamp
+ * /obj/item/rig_module/device/soap
  */
 
 /obj/item/rig_module/device
@@ -81,7 +82,6 @@
 	device_type = /obj/item/device/scanner/mining
 
 	price_tag = 850
-
 
 /obj/item/rig_module/device/rcd
 	name = "RCD mount"
@@ -620,3 +620,40 @@
 	last_use = world.time
 	if(ismob(target))
 		cooldown_time = 10 SECONDS //10x longer cooldown on hooking people, so you can't grapplelock them as easily
+
+/obj/item/rig_module/device/soap
+	name = "scrubber module"
+	desc = "A retractable scrubbing soap module."
+	icon_state = "scanner"
+	interface_name = "scrubber module"
+	interface_desc = "Used to clean messes and floor tiles, needs to be wetted from time to time."
+	engage_string = "Start Scrubbers"
+	selectable = 1
+	device_type = /obj/item/soap/syndie //faster and more uses
+
+	price_tag = 250
+
+/obj/item/rig_module/device/light_replacer
+	name = "light swapper module"
+	desc = "A retractable light replacer module."
+	icon_state = "scanner"
+	interface_name = "light replacer module"
+	interface_desc = "Used to swap broken or burnt out lights in a flash."
+	engage_string = "Start Replacing"
+	selectable = 1
+	device_type = /obj/item/device/lightreplacer/rig //faster and more uses
+
+	use_power_cost = 20 //We are fabbing a new light make it cost something
+	price_tag = 250
+
+/obj/item/rig_module/device/paperfiller
+	name = "newspaper restocking module"
+	desc = "A compressed stack of newspaper and claw to refill newscasters."
+	icon_state = "scanner"
+	interface_name = "newspaper restocking module"
+	interface_desc = "Used on newscasters to replenish printing paper."
+	engage_string = "Start Refilling"
+	selectable = 1
+	device_type = /obj/item/newspaper_stack //faster and more uses
+
+	price_tag = 150
