@@ -326,6 +326,7 @@
 	resistance = RESISTANCE_TOUGH
 	can_regenerate = FALSE
 	wireweeds_required = FALSE
+	var/threat_scale = 1
 	//internals
 	var/list/my_wireweeds = list()
 	var/list/reward_item = list(
@@ -347,11 +348,12 @@
 	state("leaves behind a weird looking tie!")
 	new /obj/item/oddity/rare/eldritch_tie(get_turf(loc))
 
-/obj/machinery/hivemind_machine/node/New(loc, _name, _surname)
+/obj/machinery/hivemind_machine/node/New(loc, _name, _surname, threat_scale)
 	if(!hive_mind_ai)
-		hive_mind_ai = new /datum/hivemind(_name, _surname)
+		hive_mind_ai = new /datum/hivemind(_name, _surname, threat_scale)
 	..()
 
+	threat_scale = hive_mind_ai.threat_scale
 	hive_mind_ai.hives.Add(src)
 	hive_mind_ai.level_up()
 

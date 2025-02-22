@@ -6,8 +6,7 @@
 	layer = 2
 	health = 		80
 	max_health = 	80 		//we are a little bit durable
-	spread_chance = 85
-	var/list/killer_reagents = list("pacid", "sacid", "hclacid", "chlorine")
+	var/list/killer_reagents = list("pacid", "sacid", "hclacid")
 	//internals
 	var/obj/machinery/hivemind_machine/node/master_node
 	var/list/wires_connections = list("0", "0", "0", "0")
@@ -44,6 +43,7 @@
 /obj/effect/plant/hivemind/after_spread(obj/effect/plant/child, turf/target_turf)
 	if(master_node)
 		master_node.add_wireweed(child)
+		seed.set_trait(TRAIT_POTENCY,50 * master_node.threat_scale) //how fast we spread
 	spawn(1)
 		child.dir = get_dir(loc, target_turf) //actually this means nothing for wires, but need for animation
 		flick("spread_anim", child)
@@ -55,7 +55,7 @@
 			die_off()
 	else
 		if(hive_mind_ai)
-			if(prob(GLOB.hive_data_float["hivemind_mob_spawn_odds"] + hive_mind_ai.evo_level)) //5->10ish% per spred tile to spawn a mob, this makes hivemins in open areas more deadly
+			if(prob((GLOB.hive_data_float["hivemind_mob_spawn_odds"] + hive_mind_ai.evo_level)) * master_node.threat_scale) //5->10ish% per spred tile to spawn a mob, this makes hivemins in open areas more deadly
 				new /obj/random/structures/hivemind_mob(src.loc)
 			var/already_build = FALSE
 			for(var/obj/machinery/hivemind_machine/HM in loc.contents)
