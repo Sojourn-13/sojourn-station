@@ -44,6 +44,17 @@ SUBSYSTEM_DEF(vote)
 /datum/controller/subsystem/vote/proc/autostoryteller()
 	start_vote(/datum/poll/storyteller)
 
+/datum/controller/subsystem/vote/proc/start_restart_vote_loop()
+	addtimer(CALLBACK(src, /datum/controller/subsystem/vote/proc/recall_vote), 4 HOURS)
+
+/datum/controller/subsystem/vote/proc/recall_vote_loop()
+	addtimer(CALLBACK(src, /datum/controller/subsystem/vote/proc/recall_vote), 60 MINUTES)
+
+/datum/controller/subsystem/vote/proc/recall_vote()
+	if(SSvote.active_vote) //No sneaky attempt to stop the recall vote
+		stop_vote()
+	start_vote(/datum/poll/restart)
+
 /datum/controller/subsystem/vote/proc/start_vote(newvote)
 	if(active_vote)
 		return FALSE
