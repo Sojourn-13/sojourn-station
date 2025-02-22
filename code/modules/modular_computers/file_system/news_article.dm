@@ -130,3 +130,10 @@
 /datum/computer_file/data/news_article/Kar_Thil_Kor
 	filename = "Marqua \"Kar Thil Kor\" Trade Ship."
 	server_file_path = 'news_articles/Kar_Thil_Kor.html'
+
+/datum/computer_file/data/news_article/zoo_revamp_news_cluster
+	filename = "Zoo Incursion Chronicals."
+	server_file_path = 'news_articles/zoo_revamp_news_cluster.html'
+
+
+
