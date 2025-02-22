@@ -26,6 +26,8 @@
 
 	var/fancy_icon = FALSE //This var is for mulitable icon states that DONT relie on a overlay
 	var/always_useful = FALSE
+	var/use_timer = 30
+	var/prevent_wasting = FALSE
 
 /obj/item/stack/medical/proc/try_to_save_use(mob/living/user)
 	if(ishuman(user))
@@ -108,7 +110,7 @@
 				SPAN_NOTICE("[user] starts applying [src] to [M]."), \
 				SPAN_NOTICE("You start applying [src] to [M].") \
 				)
-				if(do_after(user, 30, M))
+				if(do_after(user, use_timer, M))
 					to_chat(user, SPAN_NOTICE("You must stand still to salve wounds."))
 					return TRUE
 				if(!try_to_save_use(user))
@@ -145,7 +147,7 @@
 				SPAN_NOTICE("You start applying [src] to [M].") \
 			)
 		var/extra_healing = grabbed_medical_skill()
-		if (do_after(user, 30, M))
+		if (do_after(user, use_timer, M))
 			M.heal_organ_damage((heal_brute + extra_healing), (heal_burn + extra_healing))
 			if(!try_to_save_use(user))
 				use(1)
@@ -229,4 +231,3 @@
 /obj/item/stack/medical/Initialize()
 	. = ..()
 	update_icon()
-
