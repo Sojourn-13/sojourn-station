@@ -247,61 +247,6 @@ GLOBAL_LIST_EMPTY(explosion_watcher_list)
 
 	saved_best_explosion = max(saved_best_explosion, O.saved_best_explosion)
 
-
-// Grants research points when explosion happens nearby
-/obj/item/device/radio/beacon/explosion_watcher
-	name = "Kinetic Energy Scanner"
-	desc = "Scans the level of kinetic energy from explosions. This beacon, is in fact bomb proof and to use it properly you must use the bomb within 10 tiles of this scanner."
-
-	channels = list("Science" = 1)
-	var/targetBoom
-	var/stored_points //This is how many points we hve stored, we use them up when successfull
-
-/obj/item/device/radio/beacon/explosion_watcher/examine()
-	..()
-	to_chat(usr, "EXPECTED EXPLOSION - [targetBoom]")
-	to_chat(usr, "Points Left - [stored_points]")
-	return
-
-/obj/item/device/radio/beacon/explosion_watcher/ex_act(severity)
-	return
-
-/obj/item/device/radio/beacon/explosion_watcher/Initialize()
-	. = ..()
-	GLOB.explosion_watcher_list += src
-	targetBoom = rand(10,35)
-	stored_points = 250000 //6.1 perfect bombs
-
-/obj/item/device/radio/beacon/explosion_watcher/Destroy()
-	GLOB.explosion_watcher_list -= src
-	return ..()
-
-/obj/item/device/radio/beacon/explosion_watcher/proc/react_explosion(turf/epicenter, power)
-	power = round(power)
-	var/calculated_research_points = -1
-	for(var/obj/machinery/computer/rdconsole/RD in GLOB.computer_list)
-		if(RD.id == 1) // only core gets the science
-			var missed
-
-			missed = abs(power-targetBoom) * 8000 // each step away from the target will result in 8,000 points less, this is a range of 11.
-			if(stored_points >= 40000)
-				calculated_research_points = max(0,40000 - missed)
-			else
-				calculated_research_points = max(0,stored_points - missed)
-
-
-			stored_points -= calculated_research_points
-			RD.files.adjust_research_points(calculated_research_points)
-
-	if(calculated_research_points > 0 && stored_points)
-		autosay("Detected explosion with power level [power]. Expected explosion was [targetBoom]. Received [calculated_research_points] Research Points", name ,"Science")
-	if(0 >= stored_points)
-		autosay("Detected explosion with power level [power]. Expected explosion was [targetBoom]. No Additional Data Points Able To Gather", name ,"Science")
-	if(0 >= calculated_research_points)
-		autosay("Detected explosion with power level [power], Expected explosion was [targetBoom]. Test Results Outside Expected Range", name ,"Science")
-	targetBoom = rand(10,35)
-	autosay("Next expected power level is [targetBoom]", name ,"Science")
-
 // Universal tool to get research points from autopsy reports, virus info reports, archeology reports, slime cores
 /obj/item/device/science_tool
 	name = "science tool"

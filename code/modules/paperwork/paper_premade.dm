@@ -40,6 +40,30 @@
 	<BR>\n\t\t\tThe effect are cumulative.
 	<BR>\n\t\tWARNING: It is a crime to use this without authorization"}
 
+/obj/item/paper/toxin_index
+	name = "Memo RE: Toxins Testing Value Index"
+	info = {"Index Contents:<ol> \
+	<li> Shooting Targets: 5.\
+	<li> Machine Frames: 15 (17 If frame has wires or a circuitboard).\
+	<li> Modular Computer Consoles: 18.\
+	<li> Non-Modular Consoles: 17.\
+	<li> Any Flora (Not produce/trays): 2.\
+	<li> Compressed Cubes: 7.\
+	<li> Salvageable Machines: 60.\
+	<li> Filingcabinets: 30.\
+	<li> Metal Grilles: 2.\
+	<li> Barricades: 3.\
+	<li> Bookcases: 15.\
+	<li> Catwalks: 2.\
+	<li> Tables: 2.\
+	<li> Railing: 2 (5 if reinforced).\
+	<li> Beds and Chairs: 2.\
+	<li> Windows: Normal 2. Reinforced 3. Plasma 5 .Reinforced Plasma 10\
+	<li> Reagent Dispensers (Such as: Watercoolers, Welder Fuel Tanks, Beer Kegs): 25.\
+	<li> Lockers and Closets: 10.\
+	<li> Damaged Floors: N/A</ol>\
+	NOTE: The Watcher sees a max range of 8 tiles around it. If you use a bomb that has less then 16 Power it will match how far it scans to the round(Power/2) of the bomb used."}
+
 /obj/item/paper/courtroom
 	name = "A Crash Course in Legal SOP on the colony."
 	info = {"<B>Roles:</B>
