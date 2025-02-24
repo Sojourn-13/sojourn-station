@@ -15,6 +15,7 @@ var/datum/hivemind/hive_mind_ai
 	var/evo_points_max = 1000
 	var/evo_level = 0					//level of hivemind in general. This is our progress of EP, since they are resets after new node creation
 	var/failure_chance = 25				//how often will be created dummy machines. This chance reduces by 1 each 10 EP
+	var/threat_scale = 1
 	var/list/hives = list() 			//all functional hives stored here
 	//i know, whitelist is bad, but it's required here
 	var/list/restricted_machineries = list( /obj/machinery/light,					/obj/machinery/atmospherics,

@@ -9,7 +9,8 @@ GLOBAL_LIST_INIT(hive_data_bool, list(
 	"tyrant_death_kills_hive"		= FALSE,
 	"all_church_to_battle"			= FALSE,
 	"pop_lock"						= TRUE,
-	"slime_pop_lock"				= TRUE))
+	"slime_pop_lock"				= TRUE,
+	"reveal_location"				= TRUE))
 
 GLOBAL_LIST_INIT(hive_data_float, list(
 	"maximum_controlled_areas"		= 0,  // Stop expansion when controlling certain number of areas, 0 to disable
@@ -156,10 +157,13 @@ GLOBAL_VAR_INIT(hivemind_panel, new /datum/hivemind_panel)
 	data += "<br>All Church To Inquisitors: [GLOB.hive_data_bool["all_church_to_battle"] ? "Enabled" : "Disabled"] \
 	<a href='?src=\ref[src];toggle_inquisitors=1'>\[TOGGLE\]</a>"
 
-	data += "<br>Prevent Hivemind Events Below 7 Pop: [GLOB.hive_data_bool["pop_lock"] ? "Enabled" : "Disabled"] \
+	data += "<br>Spawn hivemind events regardles of pop and with a threat scale of 1: [GLOB.hive_data_bool["pop_lock"] ? "Enabled" : "Disabled"] \
 	<a href='?src=\ref[src];toggle_pop_lock=1'>\[TOGGLE\]</a>"
 
-	data += "<br>Prevent Blob Events Below 4 Pop: [GLOB.hive_data_bool["slime_pop_lock"] ? "Enabled" : "Disabled"] \
+	data += "<br>Reveal hiveminds location after 10 minutes: [GLOB.hive_data_bool["reveal_location"] ? "Enabled" : "Disabled"] \
+	<a href='?src=\ref[src];toggle_reveal_location=1'>\[TOGGLE\]</a>"
+
+	data += "<br>Prevent Blob Events below 4 pop: [GLOB.hive_data_bool["slime_pop_lock"] ? "Enabled" : "Disabled"] \
 	<a href='?src=\ref[src];toggle_slime_pop_lock=1'>\[TOGGLE\]</a>"
 
 	data += "</td></tr></table>"
@@ -278,6 +282,9 @@ GLOBAL_VAR_INIT(hivemind_panel, new /datum/hivemind_panel)
 
 	if(href_list["toggle_pop_lock"])
 		GLOB.hive_data_bool["pop_lock"] = !GLOB.hive_data_bool["pop_lock"]
+
+	if(href_list["toggle_reveal_location"])
+		GLOB.hive_data_bool["reveal_location"] = !GLOB.hive_data_bool["reveal_location"]
 
 	if(href_list["toggle_slime_pop_lock"])
 		GLOB.hive_data_bool["slime_pop_lock"] = !GLOB.hive_data_bool["slime_pop_lock"]
