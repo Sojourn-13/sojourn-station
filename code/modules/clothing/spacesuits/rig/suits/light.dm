@@ -74,6 +74,45 @@
 	flags_inv = 0
 	camera_networks = list(NETWORK_RESEARCH)
 
+/obj/item/rig/light/ultra_light/janitor
+	name = "SI 'Clean Spacer' control module"
+	desc = "An ultra light, unarmoured rig suit. Commissioned for cleaners and janitors due to its enhanced speed and helping with protecting against biohazards. \
+	Not as fast as the base Spacer Rig due to supportive magboots having galoshes helping janitors not slip."
+	icon_state = "hacker_rig"
+	suit_type = "SI 'Cleaner"
+	boot_type =  /obj/item/clothing/shoes/magboots/rig/light/ultra_light/janitor
+	slowdown = -0.1  //The cost of a no slip flag
+
+/obj/item/clothing/shoes/magboots/rig/light/ultra_light/janitor
+	item_flags = COVER_PREVENT_MANIPULATION | NOSLIP
+
+/obj/item/clothing/shoes/magboots/rig/light/ultra_light/janitor/attack_self(mob/user)
+	if(magpulse)
+		magpulse = 0
+		set_slowdown()
+		force = WEAPON_FORCE_WEAK
+		if(icon_base) icon_state = "[icon_base]0"
+		to_chat(user, "You disable the mag-pulse traction system.")
+	else
+		magpulse = 1
+		set_slowdown()
+		force = WEAPON_FORCE_PAINFUL
+		if(icon_base) icon_state = "[icon_base]1"
+		to_chat(user, "You enable the mag-pulse traction system.")
+	user.update_inv_shoes()	//so our mob-over-lays update
+	user.update_action_buttons()
+	user.update_floating()
+
+
+/obj/item/rig/light/ultra_light/janitor/equipped
+	initial_modules = list(
+		/obj/item/rig_module/device/flash,
+		/obj/item/rig_module/device/soap,
+		/obj/item/rig_module/device/light_replacer,
+		/obj/item/rig_module/device/paperfiller,
+		/obj/item/rig_module/storage
+		)
+
 /obj/item/rig/light/hacker/steward
 	name = "SI 'Retainer' control module"
 	desc = "A Soteria Institute modification of the traditional light rig built for equal parts utility and defense."

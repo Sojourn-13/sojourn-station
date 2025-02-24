@@ -125,6 +125,9 @@
 	/obj/item/rig_module/modular_injector/medical = 0.5, //Like normal but can be used on other people as well as yourself
 	/obj/item/rig_module/voice = 3,
 	/obj/item/rig_module/maneuvering_jets = 8, //Useful but common
+	/obj/item/rig_module/device/soap = 0.5, //Dud 99% of the time
+	/obj/item/rig_module/device/light_replacer = 0.1, //Almost always a dud
+	/obj/item/rig_module/device/paperfiller = 0.01, //Is a dud
 
 	//Vision
 	/obj/item/rig_module/vision/multi = 0.1, //Every vision mod in one, very powerful

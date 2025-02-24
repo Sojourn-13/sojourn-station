@@ -184,6 +184,12 @@
 	else
 		return 0
 
+/obj/item/device/lightreplacer/rig
+
+/obj/item/device/lightreplacer/rig/Use(var/mob/user)
+	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+	return 1
+
 #undef LIGHT_OK
 #undef LIGHT_EMPTY
 #undef LIGHT_BROKEN
