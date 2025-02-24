@@ -34,7 +34,9 @@
 			/obj/item/reagent_containers/glass/bottle/trade/bicaridine = good_data("bicaridine bottle", list(1, 3), 200),
 			/obj/item/reagent_containers/glass/bottle/trade/cronexidone = good_data("cronexidone bottle", list(1, 3), 800),
 			/obj/item/reagent_containers/glass/bottle/trade/imidazoline = good_data("imidazoline bottle", list(1, 3), 400),
-			/obj/item/reagent_containers/glass/bottle/trade/alkysine = good_data("alkysine bottle", list(1, 3), 400)
+			/obj/item/reagent_containers/glass/bottle/trade/alkysine = good_data("alkysine bottle", list(1, 3), 400),
+			/obj/item/reagent_containers/glass/beaker/vial/nanites = good_data("Raw Nanites Vial", list(-2, 2), 1200),
+			/obj/item/reagent_containers/glass/beaker/vial/uncapnanites = good_data("Raw Uncapped Nanites Vial", list(-1, 1), 1500)
 		)
 	)
 	hidden_inventory = list(

@@ -45,9 +45,9 @@
 			/obj/item/storage/briefcase/inflatable/empty,
 			/obj/item/inflatable/door,
 			/obj/item/inflatable/wall,
-			/obj/item/stack/material/steel/full = good_data("steel sheets (x120)", list(3, 5), 660), //Better deal here
+			/obj/item/stack/material/steel/full = good_data("steel sheets (x120)", list(3, 5), 660), //Worse deal here
 			/obj/item/stack/material/glass/plasmaglass = good_data("borosilicate glass sheets (x120)", list(3, 5), 3200),
-			/obj/item/storage/belt/utility/full,
+			/obj/item/storage/belt/utility/full = good_data("equipped toolbelt", list(1, 5), 150),
 			/obj/item/clothing/head/welding,
 			/obj/item/tool/omnitool,
 			/obj/item/device/geiger,

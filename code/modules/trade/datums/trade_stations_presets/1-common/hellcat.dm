@@ -23,7 +23,8 @@
 			/obj/item/handcuffs,
 			/obj/item/shield/riot,
 			/obj/item/tool/baton,
-			/obj/machinery/deployable/barrier
+			/obj/machinery/deployable/barrier,
+			/obj/item/clothing/ears/earmuffs
 		),
 		"Energy weapons" = list(
 			/obj/item/gun/energy/gun/martin,
@@ -66,6 +67,12 @@
 			/obj/item/clothing/suit/armor/bulletproof,
 			/obj/item/clothing/suit/armor/laserproof,
 			/obj/item/clothing/gloves/thick/swat
+		),
+		"Pre-Assembled Equipment Kits" = list(
+			/obj/item/storage/deferred/crate/infantry_rifle = good_data("Armstrong Kit", list(1, 3), 1000),
+			/obj/item/storage/deferred/crate/infantry_armor = good_data("Basic Armor Kit", list(1, 3), 400),
+			/obj/item/storage/deferred/crate/infantry_erifle = good_data("Cog Kit", list(1, 3), 950),
+			/obj/item/storage/deferred/havelock_box = good_data("Havelock Personal Defense Kit", list (2, 4), 450)
 		)
 	)
 	hidden_inventory = list(

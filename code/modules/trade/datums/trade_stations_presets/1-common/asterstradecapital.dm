@@ -25,7 +25,7 @@
 			/obj/item/clothing/suit/storage/hazardvest,
 			/obj/item/storage/pouch/small_generic,
 			/obj/item/storage/pouch/ammo,
-			/obj/item/storage/belt/utility,
+			/obj/item/storage/belt/utility = good_data("empty toolbelt", list(5, 20), 70),
 			/obj/item/device/lighting/toggleable/flashlight,
 			/obj/item/device/lighting/toggleable/flashlight/heavy,
 			/obj/item/device/lightreplacer,
@@ -60,7 +60,7 @@
 			/obj/item/cell/large/high,
 			/obj/item/cell/large/super
 		),
-		"Lonestar Grenade" = list(
+		"Lonestar Grenades" = list(
 			/obj/item/grenade/chem_grenade/antiweed,
 			/obj/item/grenade/chem_grenade/cleaner,
 			/obj/item/grenade/chem_grenade/metalfoam

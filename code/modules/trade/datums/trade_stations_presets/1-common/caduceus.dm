@@ -21,16 +21,19 @@
 	)
 	inventory = list(
 		"First Aid" = list(
-			/obj/item/storage/firstaid/regular,
-			/obj/item/storage/firstaid/fire,
-			/obj/item/storage/firstaid/toxin,
-			/obj/item/storage/firstaid/o2,
-			/obj/item/storage/firstaid/adv,
+			/obj/item/storage/firstaid/regular = good_data("first aid kit", list(2, 2), 250),
+			/obj/item/storage/firstaid/fire = good_data("burn aid kit", list(2, 2), 250),
+			/obj/item/storage/firstaid/toxin = good_data("toxin aid kit", list(2, 2), 250),
+			/obj/item/storage/firstaid/o2 = good_data("oxygen deprivation aid kit", list(2, 2), 250),
+			/obj/item/storage/firstaid/adv = good_data("advanced first aid kit", list(2, 2), 600),
+			/obj/item/storage/deferred/triage = good_data("triage autoinjector kit", list(2, 2), 750),
 			/obj/item/reagent_containers/glass/bottle/antitoxin = good_data("dylovene bottle", list(-1, 1), 700),
 			/obj/item/reagent_containers/glass/bottle/inaprovaline = good_data("inaprovaline bottle", list(-1, 1), 700),
 			/obj/item/reagent_containers/glass/bottle/stoxin = good_data("soporific bottle", list(-1, 1), 900),
-			/obj/item/stack/medical/bruise_pack,
-			/obj/item/stack/medical/ointment,
+			// /obj/item/stack/medical/bruise_pack,
+			// /obj/item/stack/medical/ointment,
+			/obj/item/storage/deferred/bandages = good_data("bandage kit", list(2, 2), 300),
+			/obj/item/storage/deferred/ointment = good_data("", list(2, 2), 300),
 			/obj/item/stack/medical/splint
 		),
 		"Surgery" = list(
@@ -69,25 +72,21 @@
 			/obj/item/clothing/suit/bio_suit/cmo = good_data("CMO Biohazard Suit", list(3, 4), 800),
 			/obj/item/clothing/head/bio_hood/cmo = good_data("CMO Biohazard Hood", list(3, 4), 800)
 		),
+		"XenoArcheology" = list(
+			/obj/machinery/suspension_gen,
+			/obj/structure/reagent_dispensers/coolanttank
+		),
+		"Advanced Aid" = list(
+			/obj/item/device/defib_kit
+		),
 		"Miscellaneous" = list(
-			/obj/structure/reagent_dispensers/coolanttank,
-			/obj/item/clothing/mask/breath/medical,
-			/obj/item/clothing/mask/surgical,
-			/obj/item/clothing/gloves/latex,
-			/obj/item/reagent_containers/syringe,
-			/obj/item/reagent_containers/hypospray/autoinjector,
-			/obj/item/bodybag,
 			/obj/item/storage/box/syringes,
 			/obj/item/storage/box/autoinjectors,
 			/obj/item/storage/box/masks,
 			/obj/item/storage/box/gloves,
 			/obj/item/storage/box/rxglasses,
 			/obj/item/storage/box/bodybags,
-			/obj/machinery/suspension_gen,
-			/obj/item/pc_part/drive/disk/design/medical = custom_good_amount_range(list(3, 6)),
-			/obj/item/device/defib_kit,
-			/obj/item/reagent_containers/glass/beaker/vial/nanites = good_data("Raw Nanites Vial", list(-2, 2), 1200),
-			/obj/item/reagent_containers/glass/beaker/vial/uncapnanites = good_data("Raw Uncapped Nanites Vial", list(-1, 1), 1500)
+			/obj/item/pc_part/drive/disk/design/medical = custom_good_amount_range(list(3, 6))
 		)
 	)
 	hidden_inventory = list(
@@ -119,9 +118,9 @@
 	offer_types = list(
 		/obj/item/organ/internal/scaffold = offer_data_mods("aberrant organ (input, process, output)", 1200, 4, OFFER_ABERRANT_ORGAN, 3),
 		/datum/reagent/medicine/ossisine = offer_data("ossissine bottle (60u)", 2000, 1),
-		/datum/reagent/medicine/bicaridine = offer_data("bicard bottle (60u)", 250, 3),
-		/datum/reagent/medicine/kelotane = offer_data("kelotane bottle (60u)", 250, 3),
-		/datum/reagent/medicine/dylovene = offer_data("dylovene bottle (60u)", 250, 3),
+		/datum/reagent/medicine/bicaridine = offer_data("bicard bottle (60u)", 300, 3),
+		/datum/reagent/medicine/kelotane = offer_data("kelotane bottle (60u)", 300, 3),
+		/datum/reagent/medicine/dylovene = offer_data("dylovene bottle (60u)", 300, 3),
 		/obj/item/reagent_containers/snacks/meat/spider = offer_data("spider meat", 250, 5),
 		/datum/reagent/nanites/uncapped/control_booster_utility = offer_data("Control Booster Utility bottle (60u)", 30000, 1),
 		/datum/reagent/nanites/uncapped/control_booster_combat = offer_data("Control Booster Combat bottle (60u)", 30000, 1)
