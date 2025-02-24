@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;admins - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/admins.html#proc">Proc Details</a></header>
+<main>
+<h1>admins <aside>/<a href="datum.html">datum</a>/<a href="datum/admins.html">admins</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/admin/holder2.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;holder2.dm 3"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/admins.html#proc/list_var_copies">list_var_copies</a></th><td>Will list the keys/names of all var copies currently saved into the GLOB.var_copies.</td></tr>
+            <tr><th><a href="datum/admins.html#proc/remove_var_copy">remove_var_copy</a></th><td>Removes a var copy from the global list that contains them, effectively the same as deletion.
+Automatically executes if a text argument is given, assuming it is the name of the copy to delete.</td></tr>
+            <tr><th><a href="datum/admins.html#proc/spawn_var_copy">spawn_var_copy</a></th><td>Spawns a atom on the location of the user, using the type variable within GLOB.var_copies[target_copy], using the target_copy argument.
+Then searches said list for any variables. If any variables are present, they will be applied to the newly created atom.</td></tr>
+            <tr><th><a href="datum/admins.html#proc/view_log_panel">view_log_panel</a></th><td>Panels</td></tr></table><h2 id="proc">Proc Details</h2><h3 id="proc/list_var_copies"><aside class="declaration">proc </aside>list_var_copies<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/admin/admin.dm#L1057">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;admin.dm 1057"/></a></aside>
+        </h3>
+        <p>Will list the keys/names of all var copies currently saved into the GLOB.var_copies.</p><h3 id="proc/remove_var_copy"><aside class="declaration">proc </aside>remove_var_copy<aside>(target_copy) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/admin/admin.dm#L1002">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;admin.dm 1002"/></a></aside>
+        </h3>
+        <p>Removes a var copy from the global list that contains them, effectively the same as deletion.
+Automatically executes if a text argument is given, assuming it is the name of the copy to delete.</p>
+<p>Args:
+target_copy: Text. The proc will assume this is the key, or the name, of the var copy, and will search GLOB.var_copies for it's value.</p><h3 id="proc/spawn_var_copy"><aside class="declaration">proc </aside>spawn_var_copy<aside>(target_copy) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/admin/admin.dm#L1029">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;admin.dm 1029"/></a></aside>
+        </h3>
+        <p>Spawns a atom on the location of the user, using the type variable within GLOB.var_copies[target_copy], using the target_copy argument.
+Then searches said list for any variables. If any variables are present, they will be applied to the newly created atom.</p>
+<p>Automatically executes if a text argument is given, assuming it is the name of the copy to delete.</p>
+<p>Args:
+target_copy: Text. The proc will assume this is the key, or the name, of the var copy, and will search GLOB.var_copies for it's value.</p><h3 id="proc/view_log_panel"><aside class="declaration">proc </aside>view_log_panel<aside>(/<a href="mob.html">mob</a>/M) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/admin/admin.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;admin.dm 76"/></a></aside>
+        </h3>
+        <p>Panels</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

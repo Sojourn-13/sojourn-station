@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;mob - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="mob.html#var">Var Details</a> - <a href="mob.html#proc">Proc Details</a></header>
+<main>
+<h1>mob <aside>/<a href="mob.html">mob</a></aside><aside> inherits /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/_onclick/hud/parallax.dm#L80">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;parallax.dm 80"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="mob.html#var/LAssailant_weakref">LAssailant_weakref</a></th><td>The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)</td></tr>
+            <tr><th><a href="mob.html#var/active_thinking_indicator">active_thinking_indicator</a></th><td>the icon currently used for the thinking indicator's bubble</td></tr>
+            <tr><th><a href="mob.html#var/active_typing_indicator">active_typing_indicator</a></th><td>the icon currently used for the typing indicator's bubble</td></tr>
+            <tr><th><a href="mob.html#var/alerts">alerts</a></th><td>lazy list. contains /obj/screen/alert only,  On /mob so clientless mobs will throw alerts properly</td></tr>
+            <tr><th><a href="mob.html#var/has_unlimited_silicon_privilege">has_unlimited_silicon_privilege</a></th><td>Can they interact with station electronics</td></tr>
+            <tr><th><a href="mob.html#var/registered_z">registered_z</a></th><td>The z level this mob is currently registered in</td></tr>
+            <tr><th><a href="mob.html#var/spawned_from">spawned_from</a></th><td>I'd really rather use signals for this, but, whatever. Assigned in roomba_dispenser.dm when spawned from one.</td></tr>
+            <tr><th><a href="mob.html#var/tgui_open_uis">tgui_open_uis</a></th><td>global</td></tr>
+            <tr><th><a href="mob.html#var/tracking_cameras">tracking_cameras</a></th><td>Cameras currently tracking this mob. Needed for garbage collection.</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="mob.html#proc/CanAvoidGravity">CanAvoidGravity</a></th><td>Used to determine whether or not a given mob can override gravity when
+attempting to Z-move UP.</td></tr>
+            <tr><th><a href="mob.html#proc/GenerateTag">GenerateTag</a></th><td>Generate the tag for this mob</td></tr>
+            <tr><th><a href="mob.html#proc/_pointed">_pointed</a></th><td>possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
+either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro</td></tr>
+            <tr><th><a href="mob.html#proc/can_ztravel">can_ztravel</a></th><td>An initial check for Z-level travel. Called relatively early in mob/proc/zMove.</td></tr>
+            <tr><th><a href="mob.html#proc/create_thinking_indicator">create_thinking_indicator</a></th><td>Creates a thinking indicator over the mob.</td></tr>
+            <tr><th><a href="mob.html#proc/create_typing_indicator">create_typing_indicator</a></th><td>Creates a typing indicator over the mob.</td></tr>
+            <tr><th><a href="mob.html#proc/down">down</a></th><td>Verb for the mob to move down a z-level if possible.</td></tr>
+            <tr><th><a href="mob.html#proc/emote_dead">emote_dead</a></th><td>List of symbols that we dont want a dot after
+Last character in the message</td></tr>
+            <tr><th><a href="mob.html#proc/examinate">examinate</a></th><td>Examine a mob</td></tr>
+            <tr><th><a href="mob.html#proc/execute_mode">execute_mode</a></th><td>proc version to finish /mob/verb/mode() execution. used in case the proc needs to be queued for the tick after its first called</td></tr>
+            <tr><th><a href="mob.html#proc/get_status_tab_items">get_status_tab_items</a></th><td>Adds this list to the output to the stat browser</td></tr>
+            <tr><th><a href="mob.html#proc/mode">mode</a></th><td>Verb to activate the object in your held hand</td></tr>
+            <tr><th><a href="mob.html#proc/pointed">pointed</a></th><td>Point at an atom</td></tr>
+            <tr><th><a href="mob.html#proc/remove_all_indicators">remove_all_indicators</a></th><td>Removes any indicators and marks the mob as not speaking IC.</td></tr>
+            <tr><th><a href="mob.html#proc/remove_thinking_indicator">remove_thinking_indicator</a></th><td>Removes the thinking indicator over the mob.</td></tr>
+            <tr><th><a href="mob.html#proc/remove_typing_indicator">remove_typing_indicator</a></th><td>Removes the typing indicator over the mob.</td></tr>
+            <tr><th><a href="mob.html#proc/set_see_in_dark">set_see_in_dark</a></th><td>See In Dark Set Handling</td></tr>
+            <tr><th><a href="mob.html#proc/set_see_invisible">set_see_invisible</a></th><td>See Invisible Set Handling</td></tr>
+            <tr><th><a href="mob.html#proc/set_sight">set_sight</a></th><td>Sight Set Handling</td></tr>
+            <tr><th><a href="mob.html#proc/shared_ui_interaction">shared_ui_interaction</a></th><td>public</td></tr>
+            <tr><th><a href="mob.html#proc/throw_alert">throw_alert</a></th><td>Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already.
+Each mob may only have one alert per category.</td></tr>
+            <tr><th><a href="mob.html#proc/up">up</a></th><td>Verb for the mob to move up a z-level if possible.</td></tr>
+            <tr><th><a href="mob.html#proc/zMove">zMove</a></th><td>Used to check if a mob can move up or down a Z-level and to then actually do the move.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/LAssailant_weakref"><aside class="declaration">var </aside>LAssailant_weakref
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/weakref.html">weakref</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob_defines.dm#L160">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 160"/></a></h3>
+        <p>The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)</p><h3 id="var/active_thinking_indicator"><aside class="declaration">var </aside>active_thinking_indicator
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/tgui_input/say_modal/typing.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui_input&#x2F;say_modal&#x2F;typing.dm 7"/></a></h3>
+        <p>the icon currently used for the thinking indicator's bubble</p><h3 id="var/active_typing_indicator"><aside class="declaration">var </aside>active_typing_indicator
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/tgui_input/say_modal/typing.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui_input&#x2F;say_modal&#x2F;typing.dm 3"/></a></h3>
+        <p>the icon currently used for the typing indicator's bubble</p><h3 id="var/alerts"><aside class="declaration">var </aside>alerts
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob_defines.dm#L211">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 211"/></a></h3>
+        <p>lazy list. contains /obj/screen/alert only,  On /mob so clientless mobs will throw alerts properly</p><h3 id="var/has_unlimited_silicon_privilege"><aside class="declaration">var </aside>has_unlimited_silicon_privilege
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob_defines.dm#L172">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 172"/></a></h3>
+        <p>Can they interact with station electronics</p><h3 id="var/registered_z"><aside class="declaration">var </aside>registered_z
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob_defines.dm#L216">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 216"/></a></h3>
+        <p>The z level this mob is currently registered in</p><h3 id="var/spawned_from"><aside class="declaration">var </aside>spawned_from
+            <aside>&ndash; /<a href="obj/entity_spawner.html">obj/entity_spawner</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob_defines.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 36"/></a></h3>
+        <p>I'd really rather use signals for this, but, whatever. Assigned in roomba_dispenser.dm when spawned from one.</p><h3 id="var/tgui_open_uis"><aside class="declaration">var </aside>tgui_open_uis
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/tgui/external.dm#L137">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 137"/></a></h3>
+        <p>global</p>
+<p>Tracks open UIs for a user.</p><h3 id="var/tracking_cameras"><aside class="declaration">var </aside>tracking_cameras
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob_defines.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 64"/></a></h3>
+        <p>Cameras currently tracking this mob. Needed for garbage collection.</p><h2 id="proc">Proc Details</h2><h3 id="proc/CanAvoidGravity"><aside class="declaration">proc </aside>CanAvoidGravity<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/multiz/movement.dm#L162">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;multiz&#x2F;movement.dm 162"/></a></aside>
+        </h3>
+        <p>Used to determine whether or not a given mob can override gravity when
+attempting to Z-move UP.</p>
+<p>Returns FALSE in standard mob cases. Exists for carbon/human and other child overrides.</p>
+<p>@return	TRUE if the mob can Z-move up despite gravity.
+FALSE otherwise.</p><h3 id="proc/GenerateTag"><aside class="parent"><a title="/atom" href="atom.html#proc/GenerateTag">&uarr;</a></aside>GenerateTag<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 66"/></a></aside>
+        </h3>
+        <p>Generate the tag for this mob</p>
+<p>This is simply &quot;mob_&quot;+ a global incrementing counter that goes up for every mob</p><h3 id="proc/_pointed"><aside class="declaration">proc </aside>_pointed<aside>(/<a href="atom.html">atom</a>/pointing_at) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob.dm#L316">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 316"/></a></aside>
+        </h3>
+        <p>possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
+either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro</p><h3 id="proc/can_ztravel"><aside class="declaration">proc </aside>can_ztravel<aside>(direction) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/multiz/movement.dm#L124">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;multiz&#x2F;movement.dm 124"/></a></aside>
+        </h3>
+        <p>An initial check for Z-level travel. Called relatively early in mob/proc/zMove.</p>
+<p>Useful for overwriting and special conditions for STOPPING z-level transit.</p>
+<p>@return	TRUE if the mob can move a Z-level of its own volition.
+FALSE otherwise.</p><h3 id="proc/create_thinking_indicator"><aside class="declaration">proc </aside>create_thinking_indicator<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/tgui_input/say_modal/typing.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui_input&#x2F;say_modal&#x2F;typing.dm 8"/></a></aside>
+        </h3>
+        <p>Creates a thinking indicator over the mob.</p><h3 id="proc/create_typing_indicator"><aside class="declaration">proc </aside>create_typing_indicator<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/tgui_input/say_modal/typing.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui_input&#x2F;say_modal&#x2F;typing.dm 16"/></a></aside>
+        </h3>
+        <p>Creates a typing indicator over the mob.</p><h3 id="proc/down"><aside class="declaration">verb </aside>down<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/multiz/movement.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;multiz&#x2F;movement.dm 24"/></a></aside>
+        </h3>
+        <p>Verb for the mob to move down a z-level if possible.</p><h3 id="proc/emote_dead"><aside class="declaration">proc </aside>emote_dead<aside>(message) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/emote.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;emote.dm 41"/></a></aside>
+        </h3>
+        <p>List of symbols that we dont want a dot after
+Last character in the message</p><h3 id="proc/examinate"><aside class="declaration">verb </aside>examinate<aside>(/<a href="atom.html">atom</a>/examinify) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob.dm#L271">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 271"/></a></aside>
+        </h3>
+        <p>Examine a mob</p>
+<p>mob verbs are faster than object verbs. See
+<a href="https://secure.byond.com/forum/?post=1326139&amp;page=2#comment8198716">this byond forum post</a>
+for why this isn't atom/verb/examine()</p><h3 id="proc/execute_mode"><aside class="declaration">proc </aside>execute_mode<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob.dm#L411">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 411"/></a></aside>
+        </h3>
+        <p>proc version to finish /mob/verb/mode() execution. used in case the proc needs to be queued for the tick after its first called</p><h3 id="proc/get_status_tab_items"><aside class="declaration">proc </aside>get_status_tab_items<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob.dm#L728">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 728"/></a></aside>
+        </h3>
+        <p>Adds this list to the output to the stat browser</p><h3 id="proc/mode"><aside class="declaration">verb </aside>mode<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob.dm#L403">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 403"/></a></aside>
+        </h3>
+        <p>Verb to activate the object in your held hand</p>
+<p>Calls attack self on the item and updates the inventory hud for hands</p><h3 id="proc/pointed"><aside class="declaration">verb </aside>pointed<aside>(/<a href="atom.html">atom</a>/A) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/mob.dm#L303">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 303"/></a></aside>
+        </h3>
+        <p>Point at an atom</p>
+<p>mob verbs are faster than object verbs. See
+<a href="https://secure.byond.com/forum/?post=1326139&amp;page=2#comment8198716">this byond forum post</a>
+for why this isn't atom/verb/pointed()</p>
+<p>note: ghosts can point, this is intended</p>
+<p>visible_message will handle invisibility properly</p>
+<p>overridden here and in /mob/dead/observer for different point span classes and sanity checks</p><h3 id="proc/remove_all_indicators"><aside class="declaration">proc </aside>remove_all_indicators<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/tgui_input/say_modal/typing.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui_input&#x2F;say_modal&#x2F;typing.dm 24"/></a></aside>
+        </h3>
+        <p>Removes any indicators and marks the mob as not speaking IC.</p><h3 id="proc/remove_thinking_indicator"><aside class="declaration">proc </aside>remove_thinking_indicator<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/tgui_input/say_modal/typing.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui_input&#x2F;say_modal&#x2F;typing.dm 12"/></a></aside>
+        </h3>
+        <p>Removes the thinking indicator over the mob.</p><h3 id="proc/remove_typing_indicator"><aside class="declaration">proc </aside>remove_typing_indicator<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/tgui_input/say_modal/typing.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui_input&#x2F;say_modal&#x2F;typing.dm 20"/></a></aside>
+        </h3>
+        <p>Removes the typing indicator over the mob.</p><h3 id="proc/set_see_in_dark"><aside class="declaration">proc </aside>set_see_in_dark<aside>(new_see_in_dark) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/observation/see_in_dark_set.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;observation&#x2F;see_in_dark_set.dm 21"/></a></aside>
+        </h3>
+        <p>See In Dark Set Handling</p><h3 id="proc/set_see_invisible"><aside class="declaration">proc </aside>set_see_invisible<aside>(new_see_invisible) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/observation/see_invisible_set.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;observation&#x2F;see_invisible_set.dm 21"/></a></aside>
+        </h3>
+        <p>See Invisible Set Handling</p><h3 id="proc/set_sight"><aside class="declaration">proc </aside>set_sight<aside>(new_sight) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/observation/sight_set.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;observation&#x2F;sight_set.dm 21"/></a></aside>
+        </h3>
+        <p>Sight Set Handling</p><h3 id="proc/shared_ui_interaction"><aside class="declaration">proc </aside>shared_ui_interaction<aside>(src_object) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/tgui/states.dm#L62">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states.dm 62"/></a></aside>
+        </h3>
+        <p>public</p>
+<p>Standard interaction/sanity checks. Different mob types may have overrides.</p>
+<p>return UI_state The state of the UI.</p><h3 id="proc/throw_alert"><aside class="declaration">proc </aside>throw_alert<aside>(category, type, severity, /obj/new_master, override, timeout_override, no_anim, icon_override, /list/alert_args) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/_onclick/hud/alert.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;alert.dm 20"/></a></aside>
+        </h3>
+        <p>Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already.
+Each mob may only have one alert per category.</p>
+<p>Arguments:</p>
+<ul>
+<li>category - a text string corresponding to what type of alert it is</li>
+<li>type - a type path of the actual alert type to throw</li>
+<li>severity - is an optional number that will be placed at the end of the icon_state for this alert
+For example, high pressure's icon_state is &quot;highpressure&quot; and can be serverity 1 or 2 to get &quot;highpressure1&quot; or &quot;highpressure2&quot;</li>
+<li>obj/new_master - optional argument. Sets the alert's icon state to &quot;template&quot; in the ui_style icons with the master as an overlay. Clicks are forwarded to master</li>
+<li>no_anim - whether the alert should play a small sliding animation when created on the player's screen</li>
+<li>icon_override - makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.</li>
+<li>list/alert_args - a list of arguments to pass to the alert when creating it</li>
+</ul><h3 id="proc/up"><aside class="declaration">verb </aside>up<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/multiz/movement.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;multiz&#x2F;movement.dm 14"/></a></aside>
+        </h3>
+        <p>Verb for the mob to move up a z-level if possible.</p><h3 id="proc/zMove"><aside class="declaration">proc </aside>zMove<aside>(direction, method) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/multiz/movement.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;multiz&#x2F;movement.dm 39"/></a></aside>
+        </h3>
+        <p>Used to check if a mob can move up or down a Z-level and to then actually do the move.</p>
+<p>@param	direction The direction in which we're moving. Expects defines UP or DOWN.</p>
+<p>@return	TRUE if the mob has been successfully moved a Z-level.
+FALSE otherwise.</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;game&#x2F;machinery&#x2F;telecomms&#x2F;broadcaster.dm - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+</header>
+<main>
+<h1>code/game/machinery/telecomms/broadcaster.dm 
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/machinery/telecomms/broadcaster.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;telecomms&#x2F;broadcaster.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th>/proc/<a href="global.html#proc/Broadcast_Message">Broadcast_Message</a></th>
+                <td>Here is the big, bad function that broadcasts a message given the appropriate
+parameters.
+@param connection:
+The datum generated in radio.dm, stored in signal.data[&quot;connection&quot;].
+@param M:
+Reference to the mob/speaker, stored in signal.data[&quot;mob&quot;]
+@param vmask:
+Boolean value if the mob is &quot;hiding&quot; its identity via voice mask, stored in
+signal.data[&quot;vmask&quot;]
+@param vmessage:
+If specified, will display this as the message; such as &quot;chimpering&quot;
+for monkies if the mob is not understood. Stored in signal.data[&quot;vmessage&quot;].
+@param radio:
+Reference to the radio broadcasting the message, stored in signal.data[&quot;radio&quot;]
+@param message:
+The actual string message to display to mobs who understood mob M. Stored in
+signal.data[&quot;message&quot;]
+@param name:
+The name to display when a mob receives the message. signal.data[&quot;name&quot;]
+@param job:
+The name job to display for the AI when it receives the message. signal.data[&quot;job&quot;]
+@param realname:
+The &quot;real&quot; name associated with the mob. signal.data[&quot;realname&quot;]
+@param vname:
+If specified, will use this name when mob M is not understood. signal.data[&quot;vname&quot;]
+@param data:
+If specified:
+1 -- Will only broadcast to intercoms
+2 -- Will only broadcast to intercoms and ham radios
+3 -- Broadcast to syndicate frequency
+4 -- AI can't track down this person. Useful for imitation broadcasts where you can't find the actual mob
+@param compression:
+If 0, the signal is audible
+If nonzero, the signal may be partially inaudible or just complete gibberish.
+@param level:
+The list of Z levels that the sending radio is broadcasting to. Having 0 in the list broadcasts on all levels
+@param freq
+The frequency of the signal</td></tr></table></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

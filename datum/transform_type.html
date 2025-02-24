@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;transform_type - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/transform_type.html#var">Var Details</a> - <a href="datum/transform_type.html#proc">Proc Details</a></header>
+<main>
+<h1>transform_type <aside>/<a href="datum.html">datum</a>/<a href="datum/transform_type.html">transform_type</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 5"/></a></h1>
+
+<p>Datum-based transforms, used for compatability between transform types. Ideally will replace all matrix/transform replacements and transforms we have.
+To use this, you have two options: One, add a new transform_type to types.dm, and apply it with add_transformation_type or add_initial_transforms. This allows full functionality.
+The second is to use a instance of /transform_type/modular and pass the variables in add_transformation_type through args. This isn't reccomended, but if you dont want to make
+A new datum, this works decently.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/transform_type.html#var/flag">flag</a></th><td>The flag, in string form (ideally put as a define in _DEFINES/transforms.dm). This is the entire reason this datum was made; so that we can apply a specific transform
+to an atom, using say, a constant check, without repeatadly reapplying the same effect and without clearing the transform entirely every time.</td></tr>
+            <tr><th><a href="datum/transform_type.html#var/holder">holder</a></th><td>The atom we are applied to.</td></tr>
+            <tr><th><a href="datum/transform_type.html#var/needs_value_target">needs_value_target</a></th><td>If you actually use value_target, set this to TRUE. Weakrefs aren't free.</td></tr>
+            <tr><th><a href="datum/transform_type.html#var/override">override</a></th><td>If the target has a transform_type with the same flag and this is true, that transform_type will be removed and we will be applied.</td></tr>
+            <tr><th><a href="datum/transform_type.html#var/priority">priority</a></th><td>The priority that this transform_type will have. When rebuild_transforms() is called, the transform_types list is sorted using priority, from least to greatest,
+and then the transform is reset, before applying all transforms from lowest index in the list, to highest.</td></tr>
+            <tr><th><a href="datum/transform_type.html#var/rotation">rotation</a></th><td>How much this transform will rotate the atom, in degrees.</td></tr>
+            <tr><th><a href="datum/transform_type.html#var/scale_x">scale_x</a></th><td>How much this transform will scale the atom on the x axis.</td></tr>
+            <tr><th><a href="datum/transform_type.html#var/scale_y">scale_y</a></th><td>How much this transform will scale the atom on the y axis.</td></tr>
+            <tr><th><a href="datum/transform_type.html#var/shift_x">shift_x</a></th><td>How many pixels on the x axis this transform will shift the atom.</td></tr>
+            <tr><th><a href="datum/transform_type.html#var/shift_y">shift_y</a></th><td>How many pixels on the y axis this transform will shift the atom.</td></tr>
+            <tr><th><a href="datum/transform_type.html#var/value_target">value_target</a></th><td>The atom we use for updating our values and such. Weakreffed, as we have no way of ensuring it isn't being deleted.</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/transform_type.html#proc/apply_custom_values">apply_custom_values</a></th><td>Base proc for applying custom values on creation. Must return TRUE or else apply_transformation will crash. Can return a string for the CRASH to display it in runtimes.</td></tr>
+            <tr><th><a href="datum/transform_type.html#proc/copy_variables_from">copy_variables_from</a></th><td>Proc for copying variables from to_copy_from to src. Useful for copying transformations from an atom to another.
+Must call parent and must override for type-specific vars.
+Args:
+datum/transform_type/to_copy_from: The datum to copy variables from.
+copyholder = FALSE: If true, src will also take to_copy_from's holder var.
+copyvaluetarget = TRUE: If true, src will also take to_copy_from's value_target var.</td></tr>
+            <tr><th><a href="datum/transform_type.html#proc/update_self">update_self</a></th><td>Base proc for updating transforms. Calls update_values() if update_values == TRUE.
+Args: before_initial_applicaton = FALSE - used for determining if this update is being called within apply_transformation. If FALSE, we remove ourselves, before updating our
+values, and then re-apply ourselves. This is so our holder gets our new values without overridding our current effects.
+update_values = TRUE - If TRUE, we run update_values() in the middle of the proc.</td></tr>
+            <tr><th><a href="datum/transform_type.html#proc/update_values">update_values</a></th><td>Base proc for updating our values when update_self() is called.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/flag"><aside class="declaration">var </aside>flag
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 18"/></a></h3>
+        <p>The flag, in string form (ideally put as a define in _DEFINES/transforms.dm). This is the entire reason this datum was made; so that we can apply a specific transform
+to an atom, using say, a constant check, without repeatadly reapplying the same effect and without clearing the transform entirely every time.</p><h3 id="var/holder"><aside class="declaration">var </aside>holder
+            <aside>&ndash; /<a href="atom.html">atom</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 25"/></a></h3>
+        <p>The atom we are applied to.</p><h3 id="var/needs_value_target"><aside class="declaration">var </aside>needs_value_target
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 27"/></a></h3>
+        <p>If you actually use value_target, set this to TRUE. Weakrefs aren't free.</p><h3 id="var/override"><aside class="declaration">var </aside>override
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 23"/></a></h3>
+        <p>If the target has a transform_type with the same flag and this is true, that transform_type will be removed and we will be applied.</p><h3 id="var/priority"><aside class="declaration">var </aside>priority
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 21"/></a></h3>
+        <p>The priority that this transform_type will have. When rebuild_transforms() is called, the transform_types list is sorted using priority, from least to greatest,
+and then the transform is reset, before applying all transforms from lowest index in the list, to highest.</p><h3 id="var/rotation"><aside class="declaration">var </aside>rotation
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 11"/></a></h3>
+        <p>How much this transform will rotate the atom, in degrees.</p><h3 id="var/scale_x"><aside class="declaration">var </aside>scale_x
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 7"/></a></h3>
+        <p>How much this transform will scale the atom on the x axis.</p><h3 id="var/scale_y"><aside class="declaration">var </aside>scale_y
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 9"/></a></h3>
+        <p>How much this transform will scale the atom on the y axis.</p><h3 id="var/shift_x"><aside class="declaration">var </aside>shift_x
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 13"/></a></h3>
+        <p>How many pixels on the x axis this transform will shift the atom.</p><h3 id="var/shift_y"><aside class="declaration">var </aside>shift_y
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 15"/></a></h3>
+        <p>How many pixels on the y axis this transform will shift the atom.</p><h3 id="var/value_target"><aside class="declaration">var </aside>value_target
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/weakref.html">weakref</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 31"/></a></h3>
+        <p>The atom we use for updating our values and such. Weakreffed, as we have no way of ensuring it isn't being deleted.</p><h2 id="proc">Proc Details</h2><h3 id="proc/apply_custom_values"><aside class="declaration">proc </aside>apply_custom_values<aside>(scale_x, scale_y, rotation, shift_x, shift_y, flag, override, priority) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 60"/></a></aside>
+        </h3>
+        <p>Base proc for applying custom values on creation. Must return TRUE or else apply_transformation will crash. Can return a string for the CRASH to display it in runtimes.</p><h3 id="proc/copy_variables_from"><aside class="declaration">proc </aside>copy_variables_from<aside>(/<a href="datum.html">datum</a>/<a href="datum/transform_type.html">transform_type</a>/to_copy_from, copyholder, copyvaluetarget) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L323">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 323"/></a></aside>
+        </h3>
+        <p>Proc for copying variables from to_copy_from to src. Useful for copying transformations from an atom to another.
+Must call parent and must override for type-specific vars.
+Args:
+datum/transform_type/to_copy_from: The datum to copy variables from.
+copyholder = FALSE: If true, src will also take to_copy_from's holder var.
+copyvaluetarget = TRUE: If true, src will also take to_copy_from's value_target var.</p><h3 id="proc/update_self"><aside class="declaration">proc </aside>update_self<aside>(update_values, rebuild) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L77">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 77"/></a></aside>
+        </h3>
+        <p>Base proc for updating transforms. Calls update_values() if update_values == TRUE.
+Args: before_initial_applicaton = FALSE - used for determining if this update is being called within apply_transformation. If FALSE, we remove ourselves, before updating our
+values, and then re-apply ourselves. This is so our holder gets our new values without overridding our current effects.
+update_values = TRUE - If TRUE, we run update_values() in the middle of the proc.</p><h3 id="proc/update_values"><aside class="declaration">proc </aside>update_values<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 88"/></a></aside>
+        </h3>
+        <p>Base proc for updating our values when update_self() is called.</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

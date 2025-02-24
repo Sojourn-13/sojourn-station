@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;stat_modifier - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/stat_modifier.html#var">Var Details</a> - <a href="datum/stat_modifier.html#proc">Proc Details</a></header>
+<main>
+<h1>stat_modifier <aside>/<a href="datum.html">datum</a>/<a href="datum/stat_modifier.html">stat_modifier</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 13"/></a></h1>
+
+<p>Stat modifier datum. Used in applying modifications to a given object's stats or behaviors.</p>
+<p>Variable format for most vars:</p>
+<p>variable_mult = The variable will be multiplied by this number. Can be a deicmal. Applied before the increment.</p>
+<p>variable_zeroth = When multiplying the variable by variable_mult, if the variable is zero, variable_zeroth will be added to it to prevent zero multiplication.
+Can be set to zero to allow zero multiplication.</p>
+<p>variable_increment = The variable will be incremented by this number. Can be a decimal. Applied after the mult.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/description">description</a></th><td>Every non-duplicate description will be printed when the holder is examined.</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/descriptions">descriptions</a></th><td>TODO</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/force_default_prefix">force_default_prefix</a></th><td>If true, we will completely forgo any after_apply() prefix determination.</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/holder">holder</a></th><td>The atom we have applied our changes to</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/holder_original_prob">holder_original_prob</a></th><td>When a modifier is added to an entity, it sets the probability for any mutually exclusive mods/itself to 0, itself if they have the max amount of us, determined in maximum_instances.
+This is how we reset our own probability on removal, if we remove enough for them to have more of us. Restoration of other probabilites is done in the list of mutually exclusive modifiers.</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/maxHealth_increment">maxHealth_increment</a></th><td>Changes max health by the entered value.</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/maxHealth_mult">maxHealth_mult</a></th><td>Multiplies max health by the entered value.</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/maxHealth_zeroth">maxHealth_zeroth</a></th><td>The zeroth of any given var is, if the multiplied value is zero, the value that will be added to it before it is multiplied, used to prevent multiplication with zero.</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/maximum_instances">maximum_instances</a></th><td>If our holder's current_stat_modifiers list has more or equal instances of ourself, compared to this, we return and remove ourselves from their allowed list.</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/mutually_exclusive_with">mutually_exclusive_with</a></th><td>Any modifier typepaths in this will have their prob on our holder set to 0 if we're added, and their original prob stored as the value of the typepath, for use in remove().</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/prefix">prefix</a></th><td>The prefix that will be applied to the name of target</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/prefixes">prefixes</a></th><td>TODO</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#var/stattags">stattags</a></th><td>Defines in misc.dm. Determines what gets these modifiers and what doesn't.</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/stat_modifier.html#proc/after_apply">after_apply</a></th><td>Holder proc for any logic that has to be run after apply_to(), but before prefixes and descriptions are determined</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#proc/apply_to">apply_to</a></th><td>The hub for the application of effects from the datum to the target. Likely called by valid_check().</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#proc/before_apply">before_apply</a></th><td>Holder proc for any logic that has to be run before apply_to()</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#proc/determine_description_and_prefixes">determine_description_and_prefixes</a></th><td>Uses a ratio to determine which prefix and description will be gained. If arguments_to_pass is null, uses ratio1 and ratio2 instead. Returns if force_default_prefix is true.</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#proc/remove">remove</a></th><td>Inverts all effects the modifier provided, and optionally qdeletes it. Needs to have effects manually added.</td></tr>
+            <tr><th><a href="datum/stat_modifier.html#proc/valid_check">valid_check</a></th><td>The hub for checking if this stat modifier can be applied. Likely called in atom initialize.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/description"><aside class="declaration">var </aside>description
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 30"/></a></h3>
+        <p>Every non-duplicate description will be printed when the holder is examined.</p><h3 id="var/descriptions"><aside class="declaration">var </aside>descriptions
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 38"/></a></h3>
+        <p>TODO</p><h3 id="var/force_default_prefix"><aside class="declaration">var </aside>force_default_prefix
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 43"/></a></h3>
+        <p>If true, we will completely forgo any after_apply() prefix determination.</p><h3 id="var/holder"><aside class="declaration">var </aside>holder
+            <aside>&ndash; /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 24"/></a></h3>
+        <p>The atom we have applied our changes to</p><h3 id="var/holder_original_prob"><aside class="declaration">var </aside>holder_original_prob
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 21"/></a></h3>
+        <p>When a modifier is added to an entity, it sets the probability for any mutually exclusive mods/itself to 0, itself if they have the max amount of us, determined in maximum_instances.
+This is how we reset our own probability on removal, if we remove enough for them to have more of us. Restoration of other probabilites is done in the list of mutually exclusive modifiers.</p><h3 id="var/maxHealth_increment"><aside class="declaration">var </aside>maxHealth_increment
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 46"/></a></h3>
+        <p>Changes max health by the entered value.</p><h3 id="var/maxHealth_mult"><aside class="declaration">var </aside>maxHealth_mult
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 48"/></a></h3>
+        <p>Multiplies max health by the entered value.</p><h3 id="var/maxHealth_zeroth"><aside class="declaration">var </aside>maxHealth_zeroth
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L50">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 50"/></a></h3>
+        <p>The zeroth of any given var is, if the multiplied value is zero, the value that will be added to it before it is multiplied, used to prevent multiplication with zero.</p><h3 id="var/maximum_instances"><aside class="declaration">var </aside>maximum_instances
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 15"/></a></h3>
+        <p>If our holder's current_stat_modifiers list has more or equal instances of ourself, compared to this, we return and remove ourselves from their allowed list.</p><h3 id="var/mutually_exclusive_with"><aside class="declaration">var </aside>mutually_exclusive_with
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 56"/></a></h3>
+        <p>Any modifier typepaths in this will have their prob on our holder set to 0 if we're added, and their original prob stored as the value of the typepath, for use in remove().</p><h3 id="var/prefix"><aside class="declaration">var </aside>prefix
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 27"/></a></h3>
+        <p>The prefix that will be applied to the name of target</p><h3 id="var/prefixes"><aside class="declaration">var </aside>prefixes
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 33"/></a></h3>
+        <p>TODO</p><h3 id="var/stattags"><aside class="declaration">var </aside>stattags
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 53"/></a></h3>
+        <p>Defines in misc.dm. Determines what gets these modifiers and what doesn't.</p><h2 id="proc">Proc Details</h2><h3 id="proc/after_apply"><aside class="declaration">proc </aside>after_apply<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/target, /list/arguments, arg_length, arguments_to_pass) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L225">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 225"/></a></aside>
+        </h3>
+        <p>Holder proc for any logic that has to be run after apply_to(), but before prefixes and descriptions are determined</p><h3 id="proc/apply_to"><aside class="declaration">proc </aside>apply_to<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/target, /list/arguments, arguments_to_pass) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L175">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 175"/></a></aside>
+        </h3>
+        <p>The hub for the application of effects from the datum to the target. Likely called by valid_check().</p>
+<p>In all subtypes of stat_modifier, the datum's type-specific effects are protected by a typecheck, allowing things not of the intended type to still receive the more
+general effects.</p>
+<p>Args:
+atom/movable/target: The target the effects will be applied to.</p><h3 id="proc/before_apply"><aside class="declaration">proc </aside>before_apply<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/target, /list/arguments, arg_length) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L221">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 221"/></a></aside>
+        </h3>
+        <p>Holder proc for any logic that has to be run before apply_to()</p><h3 id="proc/determine_description_and_prefixes"><aside class="declaration">proc </aside>determine_description_and_prefixes<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/target, arguments_to_pass, ratio1, ratio2) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L229">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 229"/></a></aside>
+        </h3>
+        <p>Uses a ratio to determine which prefix and description will be gained. If arguments_to_pass is null, uses ratio1 and ratio2 instead. Returns if force_default_prefix is true.</p><h3 id="proc/remove"><aside class="declaration">proc </aside>remove<aside>(qdel_src) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 64"/></a></aside>
+        </h3>
+        <p>Inverts all effects the modifier provided, and optionally qdeletes it. Needs to have effects manually added.</p><h3 id="proc/valid_check"><aside class="declaration">proc </aside>valid_check<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/target, /list/arguments) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/stat_modifiers/stat_modifier.dm#L133">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;stat_modifiers&#x2F;stat_modifier.dm 133"/></a></aside>
+        </h3>
+        <p>The hub for checking if this stat modifier can be applied. Likely called in atom initialize.</p>
+<p>Prior to the application of effects, if the instances of this datum's typepath in the target's current_stat_modifiers list surpasses the datum's maximum_instances var,
+it will return and remove it's own typepath from the target's allowed_stat_modifers list. After the application, if this is true, it will only remove it's own typepath
+from the latter list.</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

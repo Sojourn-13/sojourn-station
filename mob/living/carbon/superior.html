@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="mob/living/carbon/superior.html#var">Var Details</a> - <a href="mob/living/carbon/superior.html#proc">Proc Details</a></header>
+<main>
+<h1>superior <aside>/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/superior.html">superior</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/advance">advance</a></th><td>Do we advance?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/advance_if_cant_see">advance_if_cant_see</a></th><td>Does this mob advance if they can't see their target?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/advance_steps">advance_steps</a></th><td>Stored var of calculation ran within [/mob/living/carbon/superior/proc/advance_towards]</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/advancement">advancement</a></th><td>How many tiles we will advance forward from our current position if we can't hit our current target.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/advancement_increment">advancement_increment</a></th><td>Increments advancement_timer by itself whenever a ranged mob decides to advance.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/advancement_timer">advancement_timer</a></th><td>Will be incremented advancement_increment ticks whenever a ranged mob decides to advance. If more than world.time, targetting walks will be ignored, to not end the advancement.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/ai_flags">ai_flags</a></th><td>Flags for AI.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/always_telegraph_to_target">always_telegraph_to_target</a></th><td>Do we always send a message to our target when we telegraph, or only in proximity?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/comfy_distance">comfy_distance</a></th><td>comfy_range - comfy_distance = how far away mobs will try to be from their targets. Not how far they fire from.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/current_firing_offset">current_firing_offset</a></th><td>Used in proc/shoot to determine the inaccuracy of the projectile. Used value.
+A value between this and the sign-inverted (5 becomes -5) version of itself will be picked at random when the mob fires a projectile, and THAT will be the
+final offset of the projectile. Make sure to sync with initial_firing_offset.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/delayed">delayed</a></th><td>Number of delayed AI ticks, used for delaying ranged attacks. At 1, ranged mobs will be delayed by one tick after target.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/delayed_initial">delayed_initial</a></th><td>Value that delayed will be reset to.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/do_friendly_fire_chance">do_friendly_fire_chance</a></th><td>Chance to fire a projectile if it would hit a friendly.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/do_melee_if_not_adjacent">do_melee_if_not_adjacent</a></th><td>Do we charge our melee attacks if we aren't adjacent?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/fire_delay">fire_delay</a></th><td>How delayed are our ranged attacks, in ticks. Reduces DPS.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/fire_delay_initial">fire_delay_initial</a></th><td>Value used when resetting fire_delay. initial() works but breaks vareditting.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/fire_through_walls">fire_through_walls</a></th><td>Will this mob continue to fire at it's targets through walls? Ideally used with see_through_walls</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/initial_firing_offset">initial_firing_offset</a></th><td>Used in proc/shoot to determine the inaccuracy of the projectile. Initial value.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/last_followed">last_followed</a></th><td>The last mob this mob has followed, nulled on the first tick the mob is not following anymore. Make sure to assign this to the same value as following.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/lost_sight">lost_sight</a></th><td>Has this mob lost sight of their target? This is how we make sure mobs don't constantly go to the position of the target they've lost sight of.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/melee_delay">melee_delay</a></th><td>How delayed are our melee attacks, in ticks. Reduces DPS.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/melee_delay_initial">melee_delay_initial</a></th><td>Value used when resetting melee_delay. initial() works but breaks vareditting.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/melee_telegraph">melee_telegraph</a></th><td>Telegraph message base for mobs that are melee</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/out_of_sight_turf_LOS_check">out_of_sight_turf_LOS_check</a></th><td>If true, turfs that have no LOS on the target out of viewrange will be ignored when finding a location in an aura/line that's out of viewrange.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/out_of_viewrange_line_distance_mult">out_of_viewrange_line_distance_mult</a></th><td>If target_out_of_sight_mode == GUESS_LOCATION_WITH_LINE, distance from src and target will be multiplied by this, then set as the limit for the line search.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/patience">patience</a></th><td>How many ticks are we willing to wait before untargetting a mob that we can't see?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/patience_initial">patience_initial</a></th><td>What patience will be reset to whenever it's reset.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/poison_per_bite">poison_per_bite</a></th><td>Used to dictate if the critter is poisonous or not</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/prioritization_type">prioritization_type</a></th><td>The targetting prioritization type used by this mob. See mobs.dm in _DEFINES for the defines.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/prioritize_dummies">prioritize_dummies</a></th><td>Do we prioritize dummies?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/projectilevolume">projectilevolume</a></th><td>How loud will our projectile firing sound be?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/range_charge_telegraph">range_charge_telegraph</a></th><td>Telegraph messages for when a mob is ticking down it's attack delays</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/range_telegraph">range_telegraph</a></th><td>Telegraph message base for mobs that are range</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/react_to_attack">react_to_attack</a></th><td>Determines if the mob will target whoever attacked them in the absence of an existing target. Ignores view range.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/retaliation_type">retaliation_type</a></th><td>Determines what the mob will fire at if reacting to an attack they can't see. DO NOT MERGE IF NIKO DOES NOT REMOVE THIS COMMENT</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/retarget">retarget</a></th><td>Do we randomly retarget?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/retarget_chance">retarget_chance</a></th><td>Percentage chance that we will keep targetting our current target if we retarget.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/retarget_prioritize_current">retarget_prioritize_current</a></th><td>Should we prioritize our current target if we randomly retarget?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/retarget_rush_timer">retarget_rush_timer</a></th><td>If this is more than the world timer, and we retarget, we will immediately attack.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/retarget_rush_timer_increment">retarget_rush_timer_increment</a></th><td>For this amount of time after a retarget, any retargets will cause a instant attack.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/retarget_timer">retarget_timer</a></th><td>How many ticks we will wait before trying to retarget randomly. When it hits 0, we retarget and reset the timer to retarget_timer_initial.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/retarget_timer_initial">retarget_timer_initial</a></th><td>Value that retarget_timer will be reset to.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/rush_target_telegraph">rush_target_telegraph</a></th><td>Telegraph message base for mobs that are retargetting shortly after losing target</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/see_through_walls">see_through_walls</a></th><td>Can this mob see it's current targets through walls and will never act like it can't?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/target_location">target_location</a></th><td>Stored value of our current target's location, in weakref form. Only updates if we can see them. Use resolve() to find the proper value.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/target_mob">target_mob</a></th><td>Currently chased target, in weakref form.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/target_out_of_sight_mode">target_out_of_sight_mode</a></th><td>Determines what the mob will do if they are reacting to an attack and they can't see their target.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/target_telegraph">target_telegraph</a></th><td>Telegraph message base for mobs that are targetting</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/telegraph_beam_alpha">telegraph_beam_alpha</a></th><td>Alpha value of our telegraph beam.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/telegraph_beam_color">telegraph_beam_color</a></th><td>What color is our telegraph beam?</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#var/wander_if_lost_sight">wander_if_lost_sight</a></th><td>Do we wander if we can't see our target?</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#proc/doTargetMessage">doTargetMessage</a></th><td>Called in findTarget() if the found target is not the same as the one we already have.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#proc/getTargets">getTargets</a></th><td>Returns a list of objects, using a method dependant on the prioritization_type var of the mob.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#proc/handle_trace_impact">handle_trace_impact</a></th><td>To be used in conjunction with check_trajectory_raytrace. Make sure to spawn(0) before this proc so the projectile processes. spawn(0) does not work WITHIN the proc, sadly.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#proc/prepareAttackPrecursor">prepareAttackPrecursor</a></th><td>Handles telegraphing attacks, and attack delays. It does not handle the attacks themselves.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#proc/react_to_attack">react_to_attack</a></th><td>Signal handler. Called whenever a superior mob is attacked.
+On base, will target the mob that attacked them if they dont currently have a target.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#proc/right_after_firing">right_after_firing</a></th><td>Ran right after A.launch in /mob/living/carbon/superior/proc/Shoot. On base, does nothing.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#proc/right_before_firing">right_before_firing</a></th><td>Ran right before A.launch in /mob/living/carbon/superior/proc/Shoot. On base, is used for firing offset calculations.</td></tr>
+            <tr><th><a href="mob/living/carbon/superior.html#proc/target_outside_of_view_range">target_outside_of_view_range</a></th><td>To be used when we attempt to target a mob outside of view_range.
+Args:
+target: The target we are attempting to target.
+distance: The distance between our target and us. Defaults to just that value. Here for override purposes.
+target_mode: Defaults to target_out_of_sight_mode. Here for override purposes.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/advance"><aside class="declaration">var </aside>advance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L42">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 42"/></a></h3>
+        <p>Do we advance?</p><h3 id="var/advance_if_cant_see"><aside class="declaration">var </aside>advance_if_cant_see
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 19"/></a></h3>
+        <p>Does this mob advance if they can't see their target?</p><h3 id="var/advance_steps"><aside class="declaration">var </aside>advance_steps
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 44"/></a></h3>
+        <p>Stored var of calculation ran within [/mob/living/carbon/superior/proc/advance_towards]</p><h3 id="var/advancement"><aside class="declaration">var </aside>advancement
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 46"/></a></h3>
+        <p>How many tiles we will advance forward from our current position if we can't hit our current target.</p><h3 id="var/advancement_increment"><aside class="declaration">var </aside>advancement_increment
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 48"/></a></h3>
+        <p>Increments advancement_timer by itself whenever a ranged mob decides to advance.</p><h3 id="var/advancement_timer"><aside class="declaration">var </aside>advancement_timer
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L50">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 50"/></a></h3>
+        <p>Will be incremented advancement_increment ticks whenever a ranged mob decides to advance. If more than world.time, targetting walks will be ignored, to not end the advancement.</p><h3 id="var/ai_flags"><aside class="declaration">var </aside>ai_flags
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 58"/></a></h3>
+        <p>Flags for AI.</p><h3 id="var/always_telegraph_to_target"><aside class="declaration">var </aside>always_telegraph_to_target
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 39"/></a></h3>
+        <p>Do we always send a message to our target when we telegraph, or only in proximity?</p><h3 id="var/comfy_distance"><aside class="declaration">var </aside>comfy_distance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L136">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 136"/></a></h3>
+        <p>comfy_range - comfy_distance = how far away mobs will try to be from their targets. Not how far they fire from.</p><h3 id="var/current_firing_offset"><aside class="declaration">var </aside>current_firing_offset
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L311">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 311"/></a></h3>
+        <p>Used in proc/shoot to determine the inaccuracy of the projectile. Used value.
+A value between this and the sign-inverted (5 becomes -5) version of itself will be picked at random when the mob fires a projectile, and THAT will be the
+final offset of the projectile. Make sure to sync with initial_firing_offset.</p><h3 id="var/delayed"><aside class="declaration">var </aside>delayed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 74"/></a></h3>
+        <p>Number of delayed AI ticks, used for delaying ranged attacks. At 1, ranged mobs will be delayed by one tick after target.</p><h3 id="var/delayed_initial"><aside class="declaration">var </aside>delayed_initial
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 76"/></a></h3>
+        <p>Value that delayed will be reset to.</p><h3 id="var/do_friendly_fire_chance"><aside class="declaration">var </aside>do_friendly_fire_chance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 21"/></a></h3>
+        <p>Chance to fire a projectile if it would hit a friendly.</p><h3 id="var/do_melee_if_not_adjacent"><aside class="declaration">var </aside>do_melee_if_not_adjacent
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L70">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 70"/></a></h3>
+        <p>Do we charge our melee attacks if we aren't adjacent?</p><h3 id="var/fire_delay"><aside class="declaration">var </aside>fire_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L61">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 61"/></a></h3>
+        <p>How delayed are our ranged attacks, in ticks. Reduces DPS.</p><h3 id="var/fire_delay_initial"><aside class="declaration">var </aside>fire_delay_initial
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L63">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 63"/></a></h3>
+        <p>Value used when resetting fire_delay. initial() works but breaks vareditting.</p><h3 id="var/fire_through_walls"><aside class="declaration">var </aside>fire_through_walls
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L85">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 85"/></a></h3>
+        <p>Will this mob continue to fire at it's targets through walls? Ideally used with see_through_walls</p><h3 id="var/initial_firing_offset"><aside class="declaration">var </aside>initial_firing_offset
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L305">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 305"/></a></h3>
+        <p>Used in proc/shoot to determine the inaccuracy of the projectile. Initial value.</p><h3 id="var/last_followed"><aside class="declaration">var </aside>last_followed
+            <aside>&ndash; /<a href="mob.html">mob</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L290">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 290"/></a></h3>
+        <p>The last mob this mob has followed, nulled on the first tick the mob is not following anymore. Make sure to assign this to the same value as following.</p><h3 id="var/lost_sight"><aside class="declaration">var </aside>lost_sight
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 55"/></a></h3>
+        <p>Has this mob lost sight of their target? This is how we make sure mobs don't constantly go to the position of the target they've lost sight of.</p><h3 id="var/melee_delay"><aside class="declaration">var </aside>melee_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 66"/></a></h3>
+        <p>How delayed are our melee attacks, in ticks. Reduces DPS.</p><h3 id="var/melee_delay_initial"><aside class="declaration">var </aside>melee_delay_initial
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L68">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 68"/></a></h3>
+        <p>Value used when resetting melee_delay. initial() works but breaks vareditting.</p><h3 id="var/melee_telegraph"><aside class="declaration">var </aside>melee_telegraph
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L96">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 96"/></a></h3>
+        <p>Telegraph message base for mobs that are melee</p><h3 id="var/out_of_sight_turf_LOS_check"><aside class="declaration">var </aside>out_of_sight_turf_LOS_check
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L202">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 202"/></a></h3>
+        <p>If true, turfs that have no LOS on the target out of viewrange will be ignored when finding a location in an aura/line that's out of viewrange.</p><h3 id="var/out_of_viewrange_line_distance_mult"><aside class="declaration">var </aside>out_of_viewrange_line_distance_mult
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L204">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 204"/></a></h3>
+        <p>If target_out_of_sight_mode == GUESS_LOCATION_WITH_LINE, distance from src and target will be multiplied by this, then set as the limit for the line search.</p><h3 id="var/patience"><aside class="declaration">var </aside>patience
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L89">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 89"/></a></h3>
+        <p>How many ticks are we willing to wait before untargetting a mob that we can't see?</p><h3 id="var/patience_initial"><aside class="declaration">var </aside>patience_initial
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L91">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 91"/></a></h3>
+        <p>What patience will be reset to whenever it's reset.</p><h3 id="var/poison_per_bite"><aside class="declaration">var </aside>poison_per_bite
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L314">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 314"/></a></h3>
+        <p>Used to dictate if the critter is poisonous or not</p><h3 id="var/prioritization_type"><aside class="declaration">var </aside>prioritization_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 30"/></a></h3>
+        <p>The targetting prioritization type used by this mob. See mobs.dm in _DEFINES for the defines.</p><h3 id="var/prioritize_dummies"><aside class="declaration">var </aside>prioritize_dummies
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 32"/></a></h3>
+        <p>Do we prioritize dummies?</p><h3 id="var/projectilevolume"><aside class="declaration">var </aside>projectilevolume
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L271">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 271"/></a></h3>
+        <p>How loud will our projectile firing sound be?</p><h3 id="var/range_charge_telegraph"><aside class="declaration">var </aside>range_charge_telegraph
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L104">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 104"/></a></h3>
+        <p>Telegraph messages for when a mob is ticking down it's attack delays</p><h3 id="var/range_telegraph"><aside class="declaration">var </aside>range_telegraph
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L94">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 94"/></a></h3>
+        <p>Telegraph message base for mobs that are range</p><h3 id="var/react_to_attack"><aside class="declaration">var </aside>react_to_attack
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L196">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 196"/></a></h3>
+        <p>Determines if the mob will target whoever attacked them in the absence of an existing target. Ignores view range.</p><h3 id="var/retaliation_type"><aside class="declaration">var </aside>retaliation_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L198">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 198"/></a></h3>
+        <p>Determines what the mob will fire at if reacting to an attack they can't see. DO NOT MERGE IF NIKO DOES NOT REMOVE THIS COMMENT</p><h3 id="var/retarget"><aside class="declaration">var </aside>retarget
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 24"/></a></h3>
+        <p>Do we randomly retarget?</p><h3 id="var/retarget_chance"><aside class="declaration">var </aside>retarget_chance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 36"/></a></h3>
+        <p>Percentage chance that we will keep targetting our current target if we retarget.</p><h3 id="var/retarget_prioritize_current"><aside class="declaration">var </aside>retarget_prioritize_current
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L34">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 34"/></a></h3>
+        <p>Should we prioritize our current target if we randomly retarget?</p><h3 id="var/retarget_rush_timer"><aside class="declaration">var </aside>retarget_rush_timer
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L78">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 78"/></a></h3>
+        <p>If this is more than the world timer, and we retarget, we will immediately attack.</p><h3 id="var/retarget_rush_timer_increment"><aside class="declaration">var </aside>retarget_rush_timer_increment
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L80">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 80"/></a></h3>
+        <p>For this amount of time after a retarget, any retargets will cause a instant attack.</p><h3 id="var/retarget_timer"><aside class="declaration">var </aside>retarget_timer
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L26">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 26"/></a></h3>
+        <p>How many ticks we will wait before trying to retarget randomly. When it hits 0, we retarget and reset the timer to retarget_timer_initial.</p><h3 id="var/retarget_timer_initial"><aside class="declaration">var </aside>retarget_timer_initial
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L28">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 28"/></a></h3>
+        <p>Value that retarget_timer will be reset to.</p><h3 id="var/rush_target_telegraph"><aside class="declaration">var </aside>rush_target_telegraph
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L101">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 101"/></a></h3>
+        <p>Telegraph message base for mobs that are retargetting shortly after losing target</p><h3 id="var/see_through_walls"><aside class="declaration">var </aside>see_through_walls
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 83"/></a></h3>
+        <p>Can this mob see it's current targets through walls and will never act like it can't?</p><h3 id="var/target_location"><aside class="declaration">var </aside>target_location
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/weakref.html">weakref</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L221">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 221"/></a></h3>
+        <p>Stored value of our current target's location, in weakref form. Only updates if we can see them. Use resolve() to find the proper value.</p><h3 id="var/target_mob"><aside class="declaration">var </aside>target_mob
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/weakref.html">weakref</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L219">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 219"/></a></h3>
+        <p>Currently chased target, in weakref form.</p>
+<p>IF YOU EVER ACCESS THIS VAR, OR ASSIGN A VALUE TO IT, you NEED to use target_mob.Resolve() to access it,
+or wrap whatever youre assigning it as with WEAKREF()</p>
+<p>Otherwise, you will access the pointer in memory to the actual target, instead of the target itself.</p><h3 id="var/target_out_of_sight_mode"><aside class="declaration">var </aside>target_out_of_sight_mode
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L200">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 200"/></a></h3>
+        <p>Determines what the mob will do if they are reacting to an attack and they can't see their target.</p><h3 id="var/target_telegraph"><aside class="declaration">var </aside>target_telegraph
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L99">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 99"/></a></h3>
+        <p>Telegraph message base for mobs that are targetting</p><h3 id="var/telegraph_beam_alpha"><aside class="declaration">var </aside>telegraph_beam_alpha
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L111">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 111"/></a></h3>
+        <p>Alpha value of our telegraph beam.</p><h3 id="var/telegraph_beam_color"><aside class="declaration">var </aside>telegraph_beam_color
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L108">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 108"/></a></h3>
+        <p>What color is our telegraph beam?</p><h3 id="var/wander_if_lost_sight"><aside class="declaration">var </aside>wander_if_lost_sight
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_defines.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_defines.dm 52"/></a></h3>
+        <p>Do we wander if we can't see our target?</p><h2 id="proc">Proc Details</h2><h3 id="proc/doTargetMessage"><aside class="declaration">proc </aside>doTargetMessage<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_animal.dm#L652">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_animal.dm 652"/></a></aside>
+        </h3>
+        <p>Called in findTarget() if the found target is not the same as the one we already have.</p><h3 id="proc/getTargets"><aside class="declaration">proc </aside>getTargets<aside>(/list/L, sourceLocation) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/ai.dm#L78">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;ai.dm 78"/></a></aside>
+        </h3>
+        <p>Returns a list of objects, using a method dependant on the prioritization_type var of the mob.</p><h3 id="proc/handle_trace_impact"><aside class="declaration">proc </aside>handle_trace_impact<aside>(/<a href="obj/item.html">obj/item</a>/<a href="obj/item/projectile.html">projectile</a>/trace, delete_trace) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_animal.dm#L666">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_animal.dm 666"/></a></aside>
+        </h3>
+        <p>To be used in conjunction with check_trajectory_raytrace. Make sure to spawn(0) before this proc so the projectile processes. spawn(0) does not work WITHIN the proc, sadly.</p>
+<p>If trace.impact_atom is not targetted_mob, and it is not in trace.force_penetration_on, we will advance advancement tiles towards our target.</p>
+<p>If there is no impact atom, it will assume it was deleted, and only pass penetration data.</p>
+<p>Args:
+obj/item/projectile/trace: The trace we are registered to.
+atom/impact_atom: The atom the trace impacted.</p><h3 id="proc/prepareAttackPrecursor"><aside class="declaration">proc </aside>prepareAttackPrecursor<aside>(attack_type, telegraph, cast_beam, /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/targetted) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_animal.dm#L611">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_animal.dm 611"/></a></aside>
+        </h3>
+        <p>Handles telegraphing attacks, and attack delays. It does not handle the attacks themselves.</p>
+<pre><code>Returns a boolean, FALSE meaning the proc has come to the conclusion that the mob should not fire this tick.
+
+Args:
+attack_type-The delay that will be used for this timer. Defines used by this defined in mobs.dm. Example: MELEE_TYPE.
+telegraph-Boolean. If false, no visual emote will be made.
+cast_beam-Boolean. If true, a beam will be cast from src to targetted_mob as a visual telegraph.
+atom/movable/targetted-The target of the telegraphs.
+</code></pre><h3 id="proc/react_to_attack"><aside class="declaration">proc </aside>react_to_attack<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/superior.html">superior</a>/source, /<a href="obj/item.html">obj/item</a>/attacked_with, /<a href="atom.html">atom</a>/attacker, params) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/ai.dm#L337">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;ai.dm 337"/></a></aside>
+        </h3>
+        <p>Signal handler. Called whenever a superior mob is attacked.
+On base, will target the mob that attacked them if they dont currently have a target.</p>
+<p>Args:
+source: src.
+obj/item/attacked_with: The item they were attacked with. Optional.
+atom/attacker: The atom that attacked them. Optional.
+params: A legacy arg that I only added because a proc that would send this signal had that arg.</p><h3 id="proc/right_after_firing"><aside class="declaration">proc </aside>right_after_firing<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/attack.dm#L232">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;attack.dm 232"/></a></aside>
+        </h3>
+        <p>Ran right after A.launch in /mob/living/carbon/superior/proc/Shoot. On base, does nothing.</p><h3 id="proc/right_before_firing"><aside class="declaration">proc </aside>right_before_firing<aside>(offset_positive, round_offset) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/attack.dm#L216">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;attack.dm 216"/></a></aside>
+        </h3>
+        <p>Ran right before A.launch in /mob/living/carbon/superior/proc/Shoot. On base, is used for firing offset calculations.</p><h3 id="proc/target_outside_of_view_range"><aside class="declaration">proc </aside>target_outside_of_view_range<aside>(/<a href="atom.html">atom</a>/target, distance, target_mode) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_animal.dm#L135">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_animal.dm 135"/></a></aside>
+        </h3>
+        <p>To be used when we attempt to target a mob outside of view_range.
+Args:
+target: The target we are attempting to target.
+distance: The distance between our target and us. Defaults to just that value. Here for override purposes.
+target_mode: Defaults to target_out_of_sight_mode. Here for override purposes.</p>
+<p>If target_mode == ALWAYS_SEE, just returns target. If target_mode == GUESS_LOCATION_WITH_AREA, returns RANGE_TURFS, radius being the distance outside of viewrange.
+Trims said list to remove any turfs that are dense, or turfs that have dense objects in them. If out_of_sight_turf_LOS_check is true, also removes and turfs
+that fail a can_see check.</p>
+<p>If target_mode == GUESS_TARGET_WITH_LINE, does above, except it returns a list of turfs generated from a line drawn from the edge of viewrange to</p>
+<p>out_of_viewrange_line_distance_mult the distance from said distance to the target.</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

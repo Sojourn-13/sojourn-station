@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;atom - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="atom.html#var">Var Details</a> - <a href="atom.html#proc">Proc Details</a></header>
+<main>
+<h1>atom <aside>/<a href="atom.html">atom</a></aside><aside> inherits /<a href="datum.html">datum</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/overlays.dm#L137">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;overlays.dm 137"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="atom.html#var/atom_colours">atom_colours</a></th><td>used to store the different colors on an atom</td></tr>
+            <tr><th><a href="atom.html#var/reagent_flags">reagent_flags</a></th><td>Chemistry.</td></tr>
+            <tr><th><a href="atom.html#var/realized_overlays">realized_overlays</a></th><td>List of overlay &quot;keys&quot; (info about the appearance) -&gt; mutable versions of static appearances
+Drawn from the overlays list</td></tr>
+            <tr><th><a href="atom.html#var/realized_underlays">realized_underlays</a></th><td>List of underlay &quot;keys&quot; (info about the appearance) -&gt; mutable versions of static appearances
+Drawn from the underlays list</td></tr>
+            <tr><th><a href="atom.html#var/tf_offset_x">tf_offset_x</a></th><td>The atom's base transform scale for horizontal offset.</td></tr>
+            <tr><th><a href="atom.html#var/tf_offset_y">tf_offset_y</a></th><td>The atom's base transform scale for vertical offset.</td></tr>
+            <tr><th><a href="atom.html#var/tf_rotation">tf_rotation</a></th><td>The atom's base transform scale for rotation.</td></tr>
+            <tr><th><a href="atom.html#var/tf_scale_x">tf_scale_x</a></th><td>The atom's base transform scale for width.</td></tr>
+            <tr><th><a href="atom.html#var/tf_scale_y">tf_scale_y</a></th><td>The atom's base transform scale for height.</td></tr>
+            <tr><th><a href="atom.html#var/transform_types">transform_types</a></th><td>Associative list containing FLAG -&gt; transform_type. Holds all transform_types currently applying their effects to us.</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="atom.html#proc/AltClick">AltClick</a></th><td>Alt click on an atom.
+Performs alt-click actions before attempting to open a loot window.
+Returns TRUE if successful, FALSE if not.</td></tr>
+            <tr><th><a href="atom.html#proc/ClearTransform">ClearTransform</a></th><td>Clear the atom's tf_* variables and the current transform state.</td></tr>
+            <tr><th><a href="atom.html#proc/Exited">Exited</a></th><td>Exited Handling</td></tr>
+            <tr><th><a href="atom.html#proc/GenerateTag">GenerateTag</a></th><td>Generate a tag for this atom</td></tr>
+            <tr><th><a href="atom.html#proc/LateInitialize">LateInitialize</a></th><td>Late Intialization, for code that should run after all atoms have run Intialization</td></tr>
+            <tr><th><a href="atom.html#proc/SetName">SetName</a></th><td>Name Set Handling</td></tr>
+            <tr><th><a href="atom.html#proc/SetTransform">SetTransform</a></th><td>Sets the atom's tf_* variables and the current transform state, also applying others if supplied.</td></tr>
+            <tr><th><a href="atom.html#proc/add_atom_colour">add_atom_colour</a></th><td>Adds an instance of colour_type to the atom's atom_colours list</td></tr>
+            <tr><th><a href="atom.html#proc/add_initial_transforms">add_initial_transforms</a></th><td>Mostly an arbitrary proc. Ran on atom/initialize(). You can put your transforms in this or in any initializing proc, take your pick.</td></tr>
+            <tr><th><a href="atom.html#proc/add_new_transformation">add_new_transformation</a></th><td>Arg-based proc for adding NEW, aka non-existing transform types to the atom.
+Args:
+found_type: The type you are going to create and then add.
+list/params: The params you are going to pass to add_transformation.
+rebuild = TRUE: If this proc will handle the rebuilding. If TRUE, rebuild_transform() will be called if add_transformation() succeeds.
+valuetarget = src: Passed to add_transformation().</td></tr>
+            <tr><th><a href="atom.html#proc/add_new_transformations">add_new_transformations</a></th><td>List-based proc for adding NEW, aka non-existing transform types to the atom.
+Args:
+list/arguments - How you determine what to add. Format: add_new_transformations(list(type, type, list(type, list(params)), etc)).
+valuetarget = src - Passed to add_new_transformation.
+If you are passing params, you must wrap both the type and param list in a list of its own.</td></tr>
+            <tr><th><a href="atom.html#proc/add_transformation">add_transformation</a></th><td>Arg-based proc for adding existing transform types to the atom.
+Args:
+datum/transform_type/transform_datum: The datum you will be adding.
+list/params: Params to be passed to apply_custom_values using arglist.
+rebuild = TRUE: If this proc will handle the rebuilding. If TRUE, rebuild_transform() will be called if the proc succeeds.
+valuetarget = src: The atom to be used for update_values() and such, weakreffed. Needed for things that use the values of others, like shadows.</td></tr>
+            <tr><th><a href="atom.html#proc/add_transformations">add_transformations</a></th><td>List-based proc for adding existing transform types to the atom.
+Args:
+list/arguments - How you determine what to add. Format: add_new_transformations(list(type, type, list(type, list(params)), etc)).
+valuetarget = src - Passed to add_transformation.
+If you are passing params, you must wrap both the type and param list in a list of its own.</td></tr>
+            <tr><th><a href="atom.html#proc/apply_transformation">apply_transformation</a></th><td>Apply this transformation's effects onto us.
+Args:
+transform_arg: The transformation we are applying.
+update = TRUE - If TRUE, we call update_self() on the datum, with before_initial_application set to TRUE.
+update_values = TRUE - Passed to update_self, sets it's update_values arg.
+rebuild = FALSE - Same as update_values but for rebuild.</td></tr>
+            <tr><th><a href="atom.html#proc/check_if_alive">check_if_alive</a></th><td>If critcheck = FALSE, will check if health is more than 0. Otherwise, if is a human, will check if theyre in hardcrit.</td></tr>
+            <tr><th><a href="atom.html#proc/copy_transformations_from">copy_transformations_from</a></th><td>Copies the transformation types from atom/copy_target and applies it to src.
+Destroys the currently existing transform and replaces all existing transform types.
+Args:
+atom/copy_target: The atom to copy from.
+atom/valuetarget: Pased to add_transformations.</td></tr>
+            <tr><th><a href="atom.html#proc/get_alarm_z">get_alarm_z</a></th><td>Assisting procs</td></tr>
+            <tr><th><a href="atom.html#proc/realize_overlays">realize_overlays</a></th><td>Takes the atoms's existing overlays and underlays, and makes them mutable so they can be properly vv'd in the realized_overlays/underlays list</td></tr>
+            <tr><th><a href="atom.html#proc/rebuild_transform">rebuild_transform</a></th><td>This is where we rebuild transforms post-modification. Any removal, addition, or modification of a existing transform type will cause this proc to be called
+It sorts the transform_types list in order of the type's priority, from least to greatest (maintaining stability), before applying them to the
+atom, from least priority to highest priority. This is how we ensure consistant behavior of transforms no matter the order we add, remove, or modify them in.</td></tr>
+            <tr><th><a href="atom.html#proc/remove_all_transforms">remove_all_transforms</a></th><td>Sets transform to null, then deletes all transform_types in the transform_type list, before cutting it.</td></tr>
+            <tr><th><a href="atom.html#proc/remove_transformation">remove_transformation</a></th><td>Remove this flag's associated datum from ourselves, and remove its effects, then remove the flag.</td></tr>
+            <tr><th><a href="atom.html#proc/remove_transformations">remove_transformations</a></th><td>Removes all transformation types associated with the given flags.</td></tr>
+            <tr><th><a href="atom.html#proc/set_density">set_density</a></th><td>Density Handling</td></tr>
+            <tr><th><a href="atom.html#proc/set_dir">set_dir</a></th><td>Direction Handling</td></tr>
+            <tr><th><a href="atom.html#proc/set_invisibility">set_invisibility</a></th><td>Invisibility Set Handling</td></tr>
+            <tr><th><a href="atom.html#proc/singuloCanEat">singuloCanEat</a></th><td>Nar-Sie Act/Pull</td></tr>
+            <tr><th><a href="atom.html#proc/update_all_transforms">update_all_transforms</a></th><td>Updates all transforms in the transform_types list of this atom.</td></tr>
+            <tr><th><a href="atom.html#proc/update_atom_colour">update_atom_colour</a></th><td>Resets the atom's color to null, and then sets it to the highest priority colour available</td></tr>
+            <tr><th><a href="atom.html#proc/update_transform">update_transform</a></th><td>Updates the transform with the given flag in the transform_types list.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/atom_colours"><aside class="declaration">var </aside>atom_colours
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 44"/></a></h3>
+        <p>used to store the different colors on an atom</p>
+<p>its inherent color, the colored paint applied on it, special color effect etc...</p><h3 id="var/reagent_flags"><aside class="declaration">var </aside>reagent_flags
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 25"/></a></h3>
+        <p>Chemistry.</p><h3 id="var/realized_overlays"><aside class="declaration">var </aside>realized_overlays
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/overlays.dm#L140">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;overlays.dm 140"/></a></h3>
+        <p>List of overlay &quot;keys&quot; (info about the appearance) -&gt; mutable versions of static appearances
+Drawn from the overlays list</p><h3 id="var/realized_underlays"><aside class="declaration">var </aside>realized_underlays
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/overlays.dm#L145">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;overlays.dm 145"/></a></h3>
+        <p>List of underlay &quot;keys&quot; (info about the appearance) -&gt; mutable versions of static appearances
+Drawn from the underlays list</p><h3 id="var/tf_offset_x"><aside class="declaration">var </aside>tf_offset_x
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/core/atom/Transform.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;core&#x2F;atom&#x2F;Transform.dm 11"/></a></h3>
+        <p>The atom's base transform scale for horizontal offset.</p><h3 id="var/tf_offset_y"><aside class="declaration">var </aside>tf_offset_y
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/core/atom/Transform.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;core&#x2F;atom&#x2F;Transform.dm 14"/></a></h3>
+        <p>The atom's base transform scale for vertical offset.</p><h3 id="var/tf_rotation"><aside class="declaration">var </aside>tf_rotation
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/core/atom/Transform.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;core&#x2F;atom&#x2F;Transform.dm 8"/></a></h3>
+        <p>The atom's base transform scale for rotation.</p><h3 id="var/tf_scale_x"><aside class="declaration">var </aside>tf_scale_x
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/core/atom/Transform.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;core&#x2F;atom&#x2F;Transform.dm 2"/></a></h3>
+        <p>The atom's base transform scale for width.</p><h3 id="var/tf_scale_y"><aside class="declaration">var </aside>tf_scale_y
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/core/atom/Transform.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;core&#x2F;atom&#x2F;Transform.dm 5"/></a></h3>
+        <p>The atom's base transform scale for height.</p><h3 id="var/transform_types"><aside class="declaration">var </aside>transform_types
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 22"/></a></h3>
+        <p>Associative list containing FLAG -&gt; transform_type. Holds all transform_types currently applying their effects to us.</p><h2 id="proc">Proc Details</h2><h3 id="proc/AltClick"><aside class="declaration">proc </aside>AltClick<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/_onclick/click.dm#L330">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;click.dm 330"/></a></aside>
+        </h3>
+        <p>Alt click on an atom.
+Performs alt-click actions before attempting to open a loot window.
+Returns TRUE if successful, FALSE if not.</p><h3 id="proc/ClearTransform"><aside class="declaration">proc </aside>ClearTransform<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/core/atom/Transform.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;core&#x2F;atom&#x2F;Transform.dm 18"/></a></aside>
+        </h3>
+        <p>Clear the atom's tf_* variables and the current transform state.</p><h3 id="proc/Exited"><aside class="declaration">proc </aside>Exited<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/exitee, /<a href="atom.html">atom</a>/new_loc) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/observation/exited.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;observation&#x2F;exited.dm 22"/></a></aside>
+        </h3>
+        <p>Exited Handling</p><h3 id="proc/GenerateTag"><aside class="declaration">proc </aside>GenerateTag<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms.dm#L187">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 187"/></a></aside>
+        </h3>
+        <p>Generate a tag for this atom</p><h3 id="proc/LateInitialize"><aside class="declaration">proc </aside>LateInitialize<aside>(mapload) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms.dm#L162">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 162"/></a></aside>
+        </h3>
+        <p>Late Intialization, for code that should run after all atoms have run Intialization</p>
+<p>To have your LateIntialize proc be called, your atoms [Initalization][/atom/proc/Initialize]
+proc must return the hint
+<a href="code/__DEFINES/subsystems.html#define/INITIALIZE_HINT_LATELOAD" title="INITIALIZE_HINT_LATELOAD">INITIALIZE_HINT_LATELOAD</a> otherwise you will never be called.</p>
+<p>useful for doing things like finding other machines on GLOB.machines because you can guarantee
+that all atoms will actually exist in the &quot;WORLD&quot; at this time and that all their Intialization
+code has been run</p><h3 id="proc/SetName"><aside class="declaration">proc </aside>SetName<aside>(new_name) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/observation/name_set.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;observation&#x2F;name_set.dm 21"/></a></aside>
+        </h3>
+        <p>Name Set Handling</p><h3 id="proc/SetTransform"><aside class="declaration">proc </aside>SetTransform<aside>(scale, scale_x, scale_y, rotation, offset_x, offset_y, /list/others) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/core/atom/Transform.dm#L28">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;core&#x2F;atom&#x2F;Transform.dm 28"/></a></aside>
+        </h3>
+        <p>Sets the atom's tf_* variables and the current transform state, also applying others if supplied.</p><h3 id="proc/add_atom_colour"><aside class="declaration">proc </aside>add_atom_colour<aside>(coloration, colour_priority) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms.dm#L860">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 860"/></a></aside>
+        </h3>
+        <p>Adds an instance of colour_type to the atom's atom_colours list</p><h3 id="proc/add_initial_transforms"><aside class="declaration">proc </aside>add_initial_transforms<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L42">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 42"/></a></aside>
+        </h3>
+        <p>Mostly an arbitrary proc. Ran on atom/initialize(). You can put your transforms in this or in any initializing proc, take your pick.</p><h3 id="proc/add_new_transformation"><aside class="declaration">proc </aside>add_new_transformation<aside>(found_type, /list/params, rebuild, valuetarget) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L129">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 129"/></a></aside>
+        </h3>
+        <p>Arg-based proc for adding NEW, aka non-existing transform types to the atom.
+Args:
+found_type: The type you are going to create and then add.
+list/params: The params you are going to pass to add_transformation.
+rebuild = TRUE: If this proc will handle the rebuilding. If TRUE, rebuild_transform() will be called if add_transformation() succeeds.
+valuetarget = src: Passed to add_transformation().</p><h3 id="proc/add_new_transformations"><aside class="declaration">proc </aside>add_new_transformations<aside>(/list/arguments, valuetarget) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L101">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 101"/></a></aside>
+        </h3>
+        <p>List-based proc for adding NEW, aka non-existing transform types to the atom.
+Args:
+list/arguments - How you determine what to add. Format: add_new_transformations(list(type, type, list(type, list(params)), etc)).
+valuetarget = src - Passed to add_new_transformation.
+If you are passing params, you must wrap both the type and param list in a list of its own.</p>
+<p>This is more efficient than add_new_transformation because it only rebuilds once.</p><h3 id="proc/add_transformation"><aside class="declaration">proc </aside>add_transformation<aside>(/<a href="datum.html">datum</a>/<a href="datum/transform_type.html">transform_type</a>/transform_datum, /list/params, rebuild, valuetarget) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L148">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 148"/></a></aside>
+        </h3>
+        <p>Arg-based proc for adding existing transform types to the atom.
+Args:
+datum/transform_type/transform_datum: The datum you will be adding.
+list/params: Params to be passed to apply_custom_values using arglist.
+rebuild = TRUE: If this proc will handle the rebuilding. If TRUE, rebuild_transform() will be called if the proc succeeds.
+valuetarget = src: The atom to be used for update_values() and such, weakreffed. Needed for things that use the values of others, like shadows.</p><h3 id="proc/add_transformations"><aside class="declaration">proc </aside>add_transformations<aside>(/list/arguments, valuetarget) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L177">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 177"/></a></aside>
+        </h3>
+        <p>List-based proc for adding existing transform types to the atom.
+Args:
+list/arguments - How you determine what to add. Format: add_new_transformations(list(type, type, list(type, list(params)), etc)).
+valuetarget = src - Passed to add_transformation.
+If you are passing params, you must wrap both the type and param list in a list of its own.</p>
+<p>This is more efficient than add_transformation because it only rebuilds once.</p><h3 id="proc/apply_transformation"><aside class="declaration">proc </aside>apply_transformation<aside>(transform_arg, update, update_values, rebuild) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L274">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 274"/></a></aside>
+        </h3>
+        <p>Apply this transformation's effects onto us.
+Args:
+transform_arg: The transformation we are applying.
+update = TRUE - If TRUE, we call update_self() on the datum, with before_initial_application set to TRUE.
+update_values = TRUE - Passed to update_self, sets it's update_values arg.
+rebuild = FALSE - Same as update_values but for rebuild.</p><h3 id="proc/check_if_alive"><aside class="declaration">proc </aside>check_if_alive<aside>(critcheck) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/mob/living/carbon/superior_animal/superior_animal.dm#L481">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;carbon&#x2F;superior_animal&#x2F;superior_animal.dm 481"/></a></aside>
+        </h3>
+        <p>If critcheck = FALSE, will check if health is more than 0. Otherwise, if is a human, will check if theyre in hardcrit.</p><h3 id="proc/copy_transformations_from"><aside class="declaration">proc </aside>copy_transformations_from<aside>(/<a href="atom.html">atom</a>/copy_target, /<a href="atom.html">atom</a>/valuetarget) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L298">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 298"/></a></aside>
+        </h3>
+        <p>Copies the transformation types from atom/copy_target and applies it to src.
+Destroys the currently existing transform and replaces all existing transform types.
+Args:
+atom/copy_target: The atom to copy from.
+atom/valuetarget: Pased to add_transformations.</p><h3 id="proc/get_alarm_z"><aside class="declaration">proc </aside>get_alarm_z<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/alarm/alarm.dm#L109">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;alarm&#x2F;alarm.dm 109"/></a></aside>
+        </h3>
+        <p>Assisting procs</p><h3 id="proc/realize_overlays"><aside class="declaration">proc </aside>realize_overlays<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/overlays.dm#L154">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;overlays.dm 154"/></a></aside>
+        </h3>
+        <p>Takes the atoms's existing overlays and underlays, and makes them mutable so they can be properly vv'd in the realized_overlays/underlays list</p><h3 id="proc/rebuild_transform"><aside class="declaration">proc </aside>rebuild_transform<aside>(update, update_values, rebuild) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L239">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 239"/></a></aside>
+        </h3>
+        <p>This is where we rebuild transforms post-modification. Any removal, addition, or modification of a existing transform type will cause this proc to be called
+It sorts the transform_types list in order of the type's priority, from least to greatest (maintaining stability), before applying them to the
+atom, from least priority to highest priority. This is how we ensure consistant behavior of transforms no matter the order we add, remove, or modify them in.</p>
+<p>The reason this proc is needed is because of how transforms work: Lets say you scale a transform, then rotate it, then translate it. If you untranslated it, then
+unrotated it, then unscaled it, it'd return to normal, however, if you unrotated it THEN untranslated it, youd have problems, because you'd end up with a different transform.
+You need to have control over the order at which you apply and remove transformations if you want consistancy.</p>
+<p>All args are passed to apply_transformation().</p><h3 id="proc/remove_all_transforms"><aside class="declaration">proc </aside>remove_all_transforms<aside>(null_transform) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L220">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 220"/></a></aside>
+        </h3>
+        <p>Sets transform to null, then deletes all transform_types in the transform_type list, before cutting it.</p><h3 id="proc/remove_transformation"><aside class="declaration">proc </aside>remove_transformation<aside>(flag, rebuild) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L198">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 198"/></a></aside>
+        </h3>
+        <p>Remove this flag's associated datum from ourselves, and remove its effects, then remove the flag.</p><h3 id="proc/remove_transformations"><aside class="declaration">proc </aside>remove_transformations<aside>(/list/flags) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L210">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 210"/></a></aside>
+        </h3>
+        <p>Removes all transformation types associated with the given flags.</p><h3 id="proc/set_density"><aside class="declaration">proc </aside>set_density<aside>(new_density) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/observation/density_set.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;observation&#x2F;density_set.dm 20"/></a></aside>
+        </h3>
+        <p>Density Handling</p><h3 id="proc/set_dir"><aside class="declaration">proc </aside>set_dir<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/observation/dir_set.dm#L28">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;observation&#x2F;dir_set.dm 28"/></a></aside>
+        </h3>
+        <p>Direction Handling</p><h3 id="proc/set_invisibility"><aside class="declaration">proc </aside>set_invisibility<aside>(new_invisibility) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/observation/set_invisibility.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;observation&#x2F;set_invisibility.dm 21"/></a></aside>
+        </h3>
+        <p>Invisibility Set Handling</p><h3 id="proc/singuloCanEat"><aside class="declaration">proc </aside>singuloCanEat<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/power/singularity/act.dm#L127">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;power&#x2F;singularity&#x2F;act.dm 127"/></a></aside>
+        </h3>
+        <p>Nar-Sie Act/Pull</p><h3 id="proc/update_all_transforms"><aside class="declaration">proc </aside>update_all_transforms<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 46"/></a></aside>
+        </h3>
+        <p>Updates all transforms in the transform_types list of this atom.</p><h3 id="proc/update_atom_colour"><aside class="declaration">proc </aside>update_atom_colour<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms.dm#L872">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 872"/></a></aside>
+        </h3>
+        <p>Resets the atom's color to null, and then sets it to the highest priority colour available</p><h3 id="proc/update_transform"><aside class="declaration">proc </aside>update_transform<aside>(transform_flag) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/datums/transformation_types/transform_types.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;transformation_types&#x2F;transform_types.dm 52"/></a></aside>
+        </h3>
+        <p>Updates the transform with the given flag in the transform_types list.</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

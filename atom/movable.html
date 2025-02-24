@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;atom&#x2F;movable - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="atom/movable.html#var">Var Details</a> - <a href="atom/movable.html#proc">Proc Details</a></header>
+<main>
+<h1>movable <aside>/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/(builtins)#L1">
+        <img src="git.png" width="16" height="16" title="(builtins) 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="atom/movable.html#var/allowed_stat_modifiers">allowed_stat_modifiers</a></th><td>Associative list. Key should be a typepath of /datum/stat_modifier, and the value should be a weight for use in prob.</td></tr>
+            <tr><th><a href="atom/movable.html#var/current_stat_modifiers">current_stat_modifiers</a></th><td>List of all instances of /datum/stat_modifier that have been applied in /datum/stat_modifier/proc/apply_to(). Should never have more instances of one typepath than that typepath's maximum_instances var.</td></tr>
+            <tr><th><a href="atom/movable.html#var/move_packet">move_packet</a></th><td>Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on</td></tr>
+            <tr><th><a href="atom/movable.html#var/multiz_falling">multiz_falling</a></th><td>Used to check wether or not an atom is being handled by SSfalling.</td></tr>
+            <tr><th><a href="atom/movable.html#var/name_prefixes">name_prefixes</a></th><td>List of all stored prefixes. Used for stat_modifiers, on everything but tools and guns, which use them for attachments.</td></tr>
+            <tr><th><a href="atom/movable.html#var/walk_override_timer">walk_override_timer</a></th><td>Used in SSmove_manager.move_to. If something with an override is called, it will set it to world.time + the value of override in the proc, and any walks that respect the override after will return until world.time is more than the var.</td></tr>
+            <tr><th><a href="atom/movable.html#var/walk_to_initial_time">walk_to_initial_time</a></th><td>Used in SSmove_manager.move_to. Set to world.time whenever a walk is called that uses temporary_walk = TRUE. Prevents walks that dont respect the override from conflicting with eachother.</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="atom/movable.html#proc/bio_anchored">bio_anchored</a></th><td>Sets the anchored var and returns if it was sucessfully changed or not. Port from eris since I was getting problems currently only used for the bioreactor</td></tr>
+            <tr><th><a href="atom/movable.html#proc/can_fall">can_fall</a></th><td>An overridable proc used by SSfalling to determine whether or not an atom
+should continue falling to the next level, or stop processing and be caught
+in midair, effectively. One of the ways to make things never fall is to make
+this return FALSE.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/can_pass_shield">can_pass_shield</a></th><td>obj/effect/shield/get_explosion_resistance() //Part of recursive explosions, probably unimplemented</td></tr>
+            <tr><th><a href="atom/movable.html#proc/update_prefixes">update_prefixes</a></th><td>First resets the name of the mob to the initial name it had, then adds each prefix in a random order.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/allowed_stat_modifiers"><aside class="declaration">var </aside>allowed_stat_modifiers
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms_movable.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 39"/></a></h3>
+        <p>Associative list. Key should be a typepath of /datum/stat_modifier, and the value should be a weight for use in prob.</p>
+<p>NOTE: Arguments may be passed to certain modifiers. To do this, change the value to this: list(prob, ...) where prob is the probability and ... are any arguments you want passed.</p><h3 id="var/current_stat_modifiers"><aside class="declaration">var </aside>current_stat_modifiers
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms_movable.dm#L42">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 42"/></a></h3>
+        <p>List of all instances of /datum/stat_modifier that have been applied in /datum/stat_modifier/proc/apply_to(). Should never have more instances of one typepath than that typepath's maximum_instances var.</p><h3 id="var/move_packet"><aside class="declaration">var </aside>move_packet
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/movement_packet.html">movement_packet</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms_movable.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 19"/></a></h3>
+        <p>Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on</p><h3 id="var/multiz_falling"><aside class="declaration">var </aside>multiz_falling
+            <aside>&ndash; /tmp</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/multiz/movement.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;multiz&#x2F;movement.dm 9"/></a></h3>
+        <p>Used to check wether or not an atom is being handled by SSfalling.</p><h3 id="var/name_prefixes"><aside class="declaration">var </aside>name_prefixes
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms_movable.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 45"/></a></h3>
+        <p>List of all stored prefixes. Used for stat_modifiers, on everything but tools and guns, which use them for attachments.</p><h3 id="var/walk_override_timer"><aside class="declaration">var </aside>walk_override_timer
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms_movable.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 27"/></a></h3>
+        <p>Used in SSmove_manager.move_to. If something with an override is called, it will set it to world.time + the value of override in the proc, and any walks that respect the override after will return until world.time is more than the var.</p><h3 id="var/walk_to_initial_time"><aside class="declaration">var </aside>walk_to_initial_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms_movable.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 24"/></a></h3>
+        <p>Used in SSmove_manager.move_to. Set to world.time whenever a walk is called that uses temporary_walk = TRUE. Prevents walks that dont respect the override from conflicting with eachother.</p><h2 id="proc">Proc Details</h2><h3 id="proc/bio_anchored"><aside class="declaration">proc </aside>bio_anchored<aside>(anchorvalue) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms_movable.dm#L496">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 496"/></a></aside>
+        </h3>
+        <p>Sets the anchored var and returns if it was sucessfully changed or not. Port from eris since I was getting problems currently only used for the bioreactor</p><h3 id="proc/can_fall"><aside class="declaration">proc </aside>can_fall<aside>(/<a href="turf.html">turf</a>/below, /<a href="turf.html">turf</a>/simulated/open/dest) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/multiz/movement.dm#L204">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;multiz&#x2F;movement.dm 204"/></a></aside>
+        </h3>
+        <p>An overridable proc used by SSfalling to determine whether or not an atom
+should continue falling to the next level, or stop processing and be caught
+in midair, effectively. One of the ways to make things never fall is to make
+this return FALSE.</p>
+<p>If the mob has fallen and is stopped amidst a fall by this, fall_impact is
+invoked with the second argument being TRUE. As opposed to the default value, FALSE.</p>
+<p>@param	below The turf that the mob is expected to end up at.
+@param	dest The tile we're presuming the mob to be at for this check. Default
+value is src.loc, (src. is important there!) but this is used for magboot lookahead
+checks it turf/simulated/open/Enter().</p>
+<p>@return	TRUE if the atom can continue falling in its present situation.
+FALSE if it should stop falling and not invoke fall_through or fall_impact
+this cycle.</p><h3 id="proc/can_pass_shield"><aside class="declaration">proc </aside>can_pass_shield<aside>(/<a href="obj/machinery.html">obj/machinery</a>/<a href="obj/machinery/power/shield_generator.html">power/shield_generator</a>/gen) 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/shield_generators/shield.dm#L326">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;shield_generators&#x2F;shield.dm 326"/></a></aside>
+        </h3>
+        <p>obj/effect/shield/get_explosion_resistance() //Part of recursive explosions, probably unimplemented</p><h3 id="proc/update_prefixes"><aside class="declaration">proc </aside>update_prefixes<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/atoms_movable.dm#L508">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 508"/></a></aside>
+        </h3>
+        <p>First resets the name of the mob to the initial name it had, then adds each prefix in a random order.</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

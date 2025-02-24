@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;entity_spawner - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/entity_spawner.html#var">Var Details</a> - <a href="obj/entity_spawner.html#proc">Proc Details</a></header>
+<main>
+<h1>entity_spawner <aside>/<a href="obj/entity_spawner.html">obj/entity_spawner</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/active">active</a></th><td>If TRUE, will perform check/tick spawn_delay every tick and/or call spawn_entities.</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/currently_spawned">currently_spawned</a></th><td>List of associative lists. each key is a typepath, each value is a instance of that typepath spawned by this machine.</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/death_message">death_message</a></th><td>The message sent on deconstruction, used as \the [src] [death_message]</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/default_spawn">default_spawn</a></th><td>List of lists. If to_spawn is empty or if none of the probabilities proc, we spawn one of these at random. Format: list(list(maximum, typepath), ...) Please don't put any typepaths in here that are in to_spawn.</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/devastate_damage">devastate_damage</a></th><td>Damage taken if a incoming explosion's severity is &quot;1&quot;/devastate</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/dropped">dropped</a></th><td>Associative list, enter typepaths as the key, chance to drop as the value. Each item will be considered individually in terms of probability.
+Very literal. Apon deconstruction of the spawner, aka when it gets shot a lot, it drops whatever is in this list. Even mobs.
+Each entry is one instance of it that will be spawned.</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/emp_message">emp_message</a></th><td>Message sent when EMPed</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/emp_recover_message">emp_recover_message</a></th><td>Message sent when they recover from an EMP</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/emp_vulnerable">emp_vulnerable</a></th><td>Does this dispenser get affected by EMPs?</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/heavy_damage">heavy_damage</a></th><td>Damage taken if a incoming explosion's severity is &quot;2&quot;/heavy</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/heavy_emp_damage">heavy_emp_damage</a></th><td>Damage taken if a incoming EMP's severity is &quot;1&quot;/heavy</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/heavy_emp_stun">heavy_emp_stun</a></th><td>Amount of ticks a heavy EMP will stun for</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/light_damage">light_damage</a></th><td>Damage taken if a incoming explosion's severity is &quot;3&quot;/light</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/light_emp_damage">light_emp_damage</a></th><td>Damage taken if a incoming EMP's severity is &quot;2&quot;/light</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/light_emp_stun">light_emp_stun</a></th><td>Amount of ticks a light EMP will stun for</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/maximum_spawned">maximum_spawned</a></th><td>Maximum total amount of mobs this machine can have created</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/spawn_delay">spawn_delay</a></th><td>Will only allow mobs to spawn if 0. Decremented every process tick if above 0 and reset to spawn_delay_initial if 0.</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/spawn_delay_initial">spawn_delay_initial</a></th><td>The value to which spawn_delay will be reset to</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/spawn_message">spawn_message</a></th><td>Used as \the [src] [spawn_message] [spawned_mob]</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/spawn_offset">spawn_offset</a></th><td>Associative. Any value here will shift the spawns that many tiles away, using coordinates. X = horizontal shifting, Y = vertical shifting, Z = z-level shifting.
+Format: list(x = offset, y = offset, z = offset). If a value is null, it defaults to 0, AKA no offset. Set the entire var to null to disable.</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/spawn_override">spawn_override</a></th><td>Associative. If this is not null, anything spawned will be spawned at these coordinates. X = horizontal, Y = vertical, Z = z-level.
+Format: list(x = coordinate, y = coordinate, z = coordinate). If a value is null, it defaults to src's respective coordinate. Set the entire var to null to disable.</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/spawn_per_spawn">spawn_per_spawn</a></th><td>How many mobs do we spawn per successful spawn?</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/spawn_probability">spawn_probability</a></th><td>used in prob() to determine if this will spawn a mob this process tick</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/to_spawn">to_spawn</a></th><td>List of lists. Format for usage: list(list(maximum, typepath, probability for prob()), ...) Please dont put any typepaths in here that are in default_spawn.</td></tr>
+            <tr><th><a href="obj/entity_spawner.html#var/track_spawned">track_spawned</a></th><td>Do we use currently_spawned?</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="obj/entity_spawner.html#proc/spawn_entities">spawn_entities</a></th><td>Top layer proc for mob dispenser spawn logic. Checks to_spawn for anything, and if there is none, uses default_spawn instead.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/active"><aside class="declaration">var </aside>active
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L50">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 50"/></a></h3>
+        <p>If TRUE, will perform check/tick spawn_delay every tick and/or call spawn_entities.</p><h3 id="var/currently_spawned"><aside class="declaration">var </aside>currently_spawned
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L99">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 99"/></a></h3>
+        <p>List of associative lists. each key is a typepath, each value is a instance of that typepath spawned by this machine.</p><h3 id="var/death_message"><aside class="declaration">var </aside>death_message
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 72"/></a></h3>
+        <p>The message sent on deconstruction, used as \the [src] [death_message]</p><h3 id="var/default_spawn"><aside class="declaration">var </aside>default_spawn
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L86">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 86"/></a></h3>
+        <p>List of lists. If to_spawn is empty or if none of the probabilities proc, we spawn one of these at random. Format: list(list(maximum, typepath), ...) Please don't put any typepaths in here that are in to_spawn.</p><h3 id="var/devastate_damage"><aside class="declaration">var </aside>devastate_damage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 15"/></a></h3>
+        <p>Damage taken if a incoming explosion's severity is &quot;1&quot;/devastate</p><h3 id="var/dropped"><aside class="declaration">var </aside>dropped
+            <aside>&ndash; /list/atom/movable</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L34">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 34"/></a></h3>
+        <p>Associative list, enter typepaths as the key, chance to drop as the value. Each item will be considered individually in terms of probability.
+Very literal. Apon deconstruction of the spawner, aka when it gets shot a lot, it drops whatever is in this list. Even mobs.
+Each entry is one instance of it that will be spawned.</p><h3 id="var/emp_message"><aside class="declaration">var </aside>emp_message
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 74"/></a></h3>
+        <p>Message sent when EMPed</p><h3 id="var/emp_recover_message"><aside class="declaration">var </aside>emp_recover_message
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 76"/></a></h3>
+        <p>Message sent when they recover from an EMP</p><h3 id="var/emp_vulnerable"><aside class="declaration">var </aside>emp_vulnerable
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 53"/></a></h3>
+        <p>Does this dispenser get affected by EMPs?</p><h3 id="var/heavy_damage"><aside class="declaration">var </aside>heavy_damage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 17"/></a></h3>
+        <p>Damage taken if a incoming explosion's severity is &quot;2&quot;/heavy</p><h3 id="var/heavy_emp_damage"><aside class="declaration">var </aside>heavy_emp_damage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 21"/></a></h3>
+        <p>Damage taken if a incoming EMP's severity is &quot;1&quot;/heavy</p><h3 id="var/heavy_emp_stun"><aside class="declaration">var </aside>heavy_emp_stun
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 23"/></a></h3>
+        <p>Amount of ticks a heavy EMP will stun for</p><h3 id="var/light_damage"><aside class="declaration">var </aside>light_damage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 19"/></a></h3>
+        <p>Damage taken if a incoming explosion's severity is &quot;3&quot;/light</p><h3 id="var/light_emp_damage"><aside class="declaration">var </aside>light_emp_damage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 25"/></a></h3>
+        <p>Damage taken if a incoming EMP's severity is &quot;2&quot;/light</p><h3 id="var/light_emp_stun"><aside class="declaration">var </aside>light_emp_stun
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 27"/></a></h3>
+        <p>Amount of ticks a light EMP will stun for</p><h3 id="var/maximum_spawned"><aside class="declaration">var </aside>maximum_spawned
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L67">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 67"/></a></h3>
+        <p>Maximum total amount of mobs this machine can have created</p><h3 id="var/spawn_delay"><aside class="declaration">var </aside>spawn_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L79">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 79"/></a></h3>
+        <p>Will only allow mobs to spawn if 0. Decremented every process tick if above 0 and reset to spawn_delay_initial if 0.</p><h3 id="var/spawn_delay_initial"><aside class="declaration">var </aside>spawn_delay_initial
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L81">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 81"/></a></h3>
+        <p>The value to which spawn_delay will be reset to</p><h3 id="var/spawn_message"><aside class="declaration">var </aside>spawn_message
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L70">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 70"/></a></h3>
+        <p>Used as \the [src] [spawn_message] [spawned_mob]</p><h3 id="var/spawn_offset"><aside class="declaration">var </aside>spawn_offset
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 64"/></a></h3>
+        <p>Associative. Any value here will shift the spawns that many tiles away, using coordinates. X = horizontal shifting, Y = vertical shifting, Z = z-level shifting.
+Format: list(x = offset, y = offset, z = offset). If a value is null, it defaults to 0, AKA no offset. Set the entire var to null to disable.</p><h3 id="var/spawn_override"><aside class="declaration">var </aside>spawn_override
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 59"/></a></h3>
+        <p>Associative. If this is not null, anything spawned will be spawned at these coordinates. X = horizontal, Y = vertical, Z = z-level.
+Format: list(x = coordinate, y = coordinate, z = coordinate). If a value is null, it defaults to src's respective coordinate. Set the entire var to null to disable.</p><h3 id="var/spawn_per_spawn"><aside class="declaration">var </aside>spawn_per_spawn
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L102">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 102"/></a></h3>
+        <p>How many mobs do we spawn per successful spawn?</p><h3 id="var/spawn_probability"><aside class="declaration">var </aside>spawn_probability
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 83"/></a></h3>
+        <p>used in prob() to determine if this will spawn a mob this process tick</p><h3 id="var/to_spawn"><aside class="declaration">var </aside>to_spawn
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L91">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 91"/></a></h3>
+        <p>List of lists. Format for usage: list(list(maximum, typepath, probability for prob()), ...) Please dont put any typepaths in here that are in default_spawn.</p><h3 id="var/track_spawned"><aside class="declaration">var </aside>track_spawned
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L97">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 97"/></a></h3>
+        <p>Do we use currently_spawned?</p><h2 id="proc">Proc Details</h2><h3 id="proc/spawn_entities"><aside class="declaration">proc </aside>spawn_entities<aside>() 
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/game/objects/random/entity_spawners/entity_spawner.dm#L146">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;random&#x2F;entity_spawners&#x2F;entity_spawner.dm 146"/></a></aside>
+        </h3>
+        <p>Top layer proc for mob dispenser spawn logic. Checks to_spawn for anything, and if there is none, uses default_spawn instead.</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

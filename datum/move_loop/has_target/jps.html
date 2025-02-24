@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;move_loop&#x2F;has_target&#x2F;jps - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/move_loop/has_target/jps.html#var">Var Details</a></header>
+<main>
+<h1>jps <aside>/<a href="datum.html">datum</a>/<a href="datum/move_loop.html">move_loop</a>/<a href="datum/move_loop/has_target.html">has_target</a>/<a href="datum/move_loop/has_target/jps.html">jps</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/movement/movement_types.dm#L340">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;movement&#x2F;movement_types.dm 340"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/move_loop/has_target/jps.html#var/avoid">avoid</a></th><td>A perticular turf to avoid</td></tr>
+            <tr><th><a href="datum/move_loop/has_target/jps.html#var/id">id</a></th><td>An ID card representing what access we have and what doors we can open. Kill me</td></tr>
+            <tr><th><a href="datum/move_loop/has_target/jps.html#var/max_path_length">max_path_length</a></th><td>Max amount of steps to search</td></tr>
+            <tr><th><a href="datum/move_loop/has_target/jps.html#var/minimum_distance">minimum_distance</a></th><td>Minimum distance to the target before path returns</td></tr>
+            <tr><th><a href="datum/move_loop/has_target/jps.html#var/movement_path">movement_path</a></th><td>A list for the path we're currently following</td></tr>
+            <tr><th><a href="datum/move_loop/has_target/jps.html#var/repath_cooldown">repath_cooldown</a></th><td>Cooldown for repathing, prevents spam</td></tr>
+            <tr><th><a href="datum/move_loop/has_target/jps.html#var/repath_delay">repath_delay</a></th><td>How often we're allowed to recalculate our path</td></tr>
+            <tr><th><a href="datum/move_loop/has_target/jps.html#var/simulated_only">simulated_only</a></th><td>Whether we consider turfs without atmos simulation (AKA do we want to ignore space)</td></tr>
+            <tr><th><a href="datum/move_loop/has_target/jps.html#var/skip_first">skip_first</a></th><td>Should we skip the first step? This is the tile we're currently on, which breaks some things</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/avoid"><aside class="declaration">var </aside>avoid
+            <aside>&ndash; /<a href="turf.html">turf</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/movement/movement_types.dm#L352">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;movement&#x2F;movement_types.dm 352"/></a></h3>
+        <p>A perticular turf to avoid</p><h3 id="var/id"><aside class="declaration">var </aside>id
+            <aside>&ndash; /<a href="obj/item.html">obj/item</a>/card/id</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/movement/movement_types.dm#L348">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;movement&#x2F;movement_types.dm 348"/></a></h3>
+        <p>An ID card representing what access we have and what doors we can open. Kill me</p><h3 id="var/max_path_length"><aside class="declaration">var </aside>max_path_length
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/movement/movement_types.dm#L344">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;movement&#x2F;movement_types.dm 344"/></a></h3>
+        <p>Max amount of steps to search</p><h3 id="var/minimum_distance"><aside class="declaration">var </aside>minimum_distance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/movement/movement_types.dm#L346">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;movement&#x2F;movement_types.dm 346"/></a></h3>
+        <p>Minimum distance to the target before path returns</p><h3 id="var/movement_path"><aside class="declaration">var </aside>movement_path
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/movement/movement_types.dm#L356">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;movement&#x2F;movement_types.dm 356"/></a></h3>
+        <p>A list for the path we're currently following</p><h3 id="var/repath_cooldown"><aside class="declaration">var </aside>repath_cooldown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/movement/movement_types.dm#L358">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;movement&#x2F;movement_types.dm 358"/></a></h3>
+        <p>Cooldown for repathing, prevents spam</p><h3 id="var/repath_delay"><aside class="declaration">var </aside>repath_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/movement/movement_types.dm#L342">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;movement&#x2F;movement_types.dm 342"/></a></h3>
+        <p>How often we're allowed to recalculate our path</p><h3 id="var/simulated_only"><aside class="declaration">var </aside>simulated_only
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/movement/movement_types.dm#L350">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;movement&#x2F;movement_types.dm 350"/></a></h3>
+        <p>Whether we consider turfs without atmos simulation (AKA do we want to ignore space)</p><h3 id="var/skip_first"><aside class="declaration">var </aside>skip_first
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/controllers/subsystems/movement/movement_types.dm#L354">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystems&#x2F;movement&#x2F;movement_types.dm 354"/></a></h3>
+        <p>Should we skip the first step? This is the tile we're currently on, which breaks some things</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

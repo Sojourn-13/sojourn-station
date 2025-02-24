@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;misc.dm - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/misc.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/misc.dm 
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/__DEFINES/misc.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;misc.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/misc.html#define/HUMAN_REQ_COG_FOR_REG">HUMAN_REQ_COG_FOR_REG</a></th><td>Required minimum values to see reagents in a beaker</td></tr>
+        <tr><th><a href="code/__DEFINES/misc.html#define/FIRESTACKS_TEMP_CONV">FIRESTACKS_TEMP_CONV</a></th><td>Misc atmos equations</td></tr>
+        <tr><th><a href="code/__DEFINES/misc.html#define/PREVENT_CHARACTER_TRIM_LOSS">PREVENT_CHARACTER_TRIM_LOSS</a></th><td>stuff like <code>copytext(input, length(input))</code> will trim the last character of the input,
+because DM does it so it copies until the char BEFORE the <code>end</code> arg, so we need to bump <code>end</code> by 1 in these cases.</td></tr>
+        <tr><th><a href="code/__DEFINES/misc.html#define/LOWER_TEXT">LOWER_TEXT</a></th><td>BYOND's string procs don't support being used on datum references (as in it doesn't look for a name for stringification)
+We just use this macro to ensure that we will only pass strings to this BYOND-level function without developers needing to really worry about it.</td></tr>
+        <tr><th><a href="code/__DEFINES/misc.html#define/REF">REF</a></th><td>\ref behaviour got changed in 512 so this is necesary to replicate old behaviour.
+This is the more performant version, it is unfortunately necessary.</td></tr>
+        <tr><th><a href="code/__DEFINES/misc.html#define/SANITIZE_FILENAME">SANITIZE_FILENAME</a></th><td>Removes characters incompatible with file names.</td></tr>
+        <tr><th><a href="code/__DEFINES/misc.html#define/INCLUDE_AC">INCLUDE_AC</a></th><td>Include leading A width and trailing C width in GetWidth() or in DrawText()</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/FIRESTACKS_TEMP_CONV"><aside class="declaration">#define </aside>FIRESTACKS_TEMP_CONV
+            <aside>(firestacks)</aside>
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/__DEFINES/misc.dm#L349">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;misc.dm 349"/></a>
+    </h3>
+    <p>Misc atmos equations</p><h3 id="define/HUMAN_REQ_COG_FOR_REG"><aside class="declaration">#define </aside>HUMAN_REQ_COG_FOR_REG
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/__DEFINES/misc.dm#L344">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;misc.dm 344"/></a>
+    </h3>
+    <p>Required minimum values to see reagents in a beaker</p><h3 id="define/INCLUDE_AC"><aside class="declaration">#define </aside>INCLUDE_AC
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/__DEFINES/misc.dm#L413">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;misc.dm 413"/></a>
+    </h3>
+    <p>Include leading A width and trailing C width in GetWidth() or in DrawText()</p><h3 id="define/LOWER_TEXT"><aside class="declaration">#define </aside>LOWER_TEXT
+            <aside>(thing)</aside>
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/__DEFINES/misc.dm#L400">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;misc.dm 400"/></a>
+    </h3>
+    <p>BYOND's string procs don't support being used on datum references (as in it doesn't look for a name for stringification)
+We just use this macro to ensure that we will only pass strings to this BYOND-level function without developers needing to really worry about it.</p><h3 id="define/PREVENT_CHARACTER_TRIM_LOSS"><aside class="declaration">#define </aside>PREVENT_CHARACTER_TRIM_LOSS
+            <aside>(integer)</aside>
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/__DEFINES/misc.dm#L396">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;misc.dm 396"/></a>
+    </h3>
+    <p>stuff like <code>copytext(input, length(input))</code> will trim the last character of the input,
+because DM does it so it copies until the char BEFORE the <code>end</code> arg, so we need to bump <code>end</code> by 1 in these cases.</p><h3 id="define/REF"><aside class="declaration">#define </aside>REF
+            <aside>(thing)</aside>
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/__DEFINES/misc.dm#L406">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;misc.dm 406"/></a>
+    </h3>
+    <p>\ref behaviour got changed in 512 so this is necesary to replicate old behaviour.
+This is the more performant version, it is unfortunately necessary.</p><h3 id="define/SANITIZE_FILENAME"><aside class="declaration">#define </aside>SANITIZE_FILENAME
+            <aside>(text)</aside>
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/__DEFINES/misc.dm#L409">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;misc.dm 409"/></a>
+    </h3>
+    <p>Removes characters incompatible with file names.</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

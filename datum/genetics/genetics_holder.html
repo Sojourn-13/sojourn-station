@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;genetics&#x2F;genetics_holder - Space Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Space Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+</header>
+<main>
+<h1>genetics_holder <aside>/<a href="datum.html">datum</a>/<a href="datum/genetics/genetics_holder.html">genetics/genetics_holder</a></aside>
+        
+    
+            <a href="https://github.com/sojourn-13/sojourn-station/blob/3435eb58416119125160e852cb1b79d887bef74a/code/modules/genetics/genetics.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;genetics&#x2F;genetics.dm 32"/></a></h1>
+
+<p>DNA 3: The Phantom Spaghette</p>
+<p>@author Hex &lt;Discord: Hex#4569&gt;</p>
+<p>Mutations are stored as a param list string so mobs can store DNA as a string when inactive.
+This should keep every mob from being 100% more complex just because they have genetic data in them.</p>
+<p>Mutations are either ACTIVE or INACTIVE. Active genes are processed and activated, Inactive genes do nothing and are stored.</p>
+<p>If no mutations in a mob has the onClone value, it will be automatically generated, so genetics can be used to clone just about anything.</p>
+<p>Duplicates of a mutation aren't stored as separate objects.
+Instead, they are combined into one mutation object with a higher &quot;count&quot; to save space, sanity, and so on.</p>
+<p>The genetics holder is the object to interact with outside of mutations. If you're calling things inside it without a proc,
+and you aren't coding a mutation, you are likely doing something WRONG.</p>
+<p>&quot;.Copy() just works&quot;</p>
+<p>Example of an inherent_mutations list:
+inherent_mutations= List(MUTATION_COW_SKIN, MUTATION_IMBECILE, MUTATION_MKNEWAIFUHAIR)</p></main>
+<footer>
+    sojourn-station.dme
+    <a href="https://github.com/sojourn-13/sojourn-station/tree/3435eb58416119125160e852cb1b79d887bef74a">3435eb5</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>
