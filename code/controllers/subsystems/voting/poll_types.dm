@@ -3,6 +3,17 @@
 ///////////////////VOTES//////////////////////
 //////////////////////////////////////////////
 
+/*To prevent abuse and rule-by-salt, the evac vote weights each player's vote based on a few parameters
+	If you are alive and have been for a while, then you have the normal 1 vote
+	If you are dead, or just spawned, you get only 0.6 votes
+	If you are an antag or a head of staff, you get 1.2 votes
+*/
+
+#define VOTE_WEIGHT_LOW	0.6
+#define VOTE_WEIGHT_NORMAL	1
+#define VOTE_WEIGHT_HIGH	1.2 //To tie 2 dead votes but not over-rule 2 living
+#define MINIMUM_VOTE_LIFETIME	15 MINUTES
+
 /datum/poll/restart
 	name = "End Round"
 	question = "End Shift?"
@@ -17,18 +28,29 @@
 	multiple_votes = TRUE //Duel votes are fun
 	can_revote = TRUE
 	can_unvote = TRUE //In case you heck up
+	only_admin = TRUE
 
 	see_votes = FALSE //No swaying
+	minimum_win_percentage = 0.6
+	var/non_admin = TRUE
 
-/*To prevent abuse and rule-by-salt, the evac vote weights each player's vote based on a few parameters
-	If you are alive and have been for a while, then you have the normal 1 vote
-	If you are dead, or just spawned, you get only 0.6 votes
-	If you are an antag or a head of staff, you get 1.2 votes
-*/
-#define VOTE_WEIGHT_LOW	0.6
-#define VOTE_WEIGHT_NORMAL	1
-#define VOTE_WEIGHT_HIGH	1.2 //To tie 2 dead votes but not over-rule 2 living
-#define MINIMUM_VOTE_LIFETIME	15 MINUTES
+/datum/poll/restart/proc/lower_minium()
+	minimum_win_percentage -= 0.1
+
+	if(minimum_win_percentage <= 0.2)
+		SSticker.shift_end(15 MINUTES)
+		for(var/mob/M as mob in SSmobs.mob_list)
+			to_chat(M, "<br><center><span class='danger'><b><font size=4>The round is ending due to exceeding 8 hours.</font></b><br></span></center><br>")
+
+/datum/poll/restart/admin
+	non_admin = FALSE
+	name = "Super Majority: End Round"
+	question = "End Shift?"
+	choice_types = list(/datum/vote_choice/restart, /datum/vote_choice/countinue_round)
+	minimum_win_percentage = 0.75
+	next_vote = 4 HOURS + 15 MINUTES //Minimum round length before it can be called for the first time
+	cooldown = 30 MINUTES //Cooldown is set to 30 mins as 1 hour is a bit much when things change so much in so little time + maxium 8 hour rounds means we should be a bit more forgiven.
+	only_admin = FALSE
 
 /datum/poll/restart/get_vote_power(var/client/C)
 	if (!istype(C))
@@ -67,16 +89,22 @@
 	//If we get here, its just a normal player who's been playing for at least 15 minutes. Normal weight
 	return VOTE_WEIGHT_NORMAL
 
+/datum/poll/restart/on_end()
+	if(non_admin)
+		lower_minium()
+		SSvote.recall_vote_loop()
+	..()
+
 #undef VOTE_WEIGHT_LOW
 #undef VOTE_WEIGHT_NORMAL
 #undef VOTE_WEIGHT_HIGH
 #undef MINIMUM_VOTE_LIFETIME
 
 /datum/poll/restart/IsAdminOnly()
-	if(config.allow_vote_restart)
-		return FALSE
-	else
+	if(only_admin) //config.allow_vote_restart
 		return TRUE
+	else
+		return FALSE
 
 
 /datum/vote_choice/restart
@@ -87,12 +115,6 @@
 
 /datum/vote_choice/countinue_round
 	text = "Continue Shift"
-
-
-
-
-
-
 
 /*********************
 	Storyteller

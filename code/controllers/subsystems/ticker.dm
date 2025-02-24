@@ -287,6 +287,8 @@ SUBSYSTEM_DEF(ticker)
 	SEND_SOUND(world, sound('sound/AI/welcome.ogg')) // Skie
 	//Holiday Round-start stuff	~Carn
 	Holiday_Game_Start()
+	SSvote.start_restart_vote_loop()
+
 
 	for(var/mob/new_player/N in SSmobs.mob_list)
 		N.new_player_panel_proc()
