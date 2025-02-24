@@ -13,12 +13,38 @@
 	origin_tech = list(TECH_MAGNET = 1, TECH_BIO = 1)
 
 	var/mode = 1
+	var/advanced = FALSE
+	var/stat_locking = TRUE
+	var/flicker = "health2"
 
 	window_width = 600
 	window_height = 400
 
 /obj/item/device/scanner/health/rig
 	charge_per_use = 0
+
+/obj/item/device/scanner/health/greyson
+	name = "Greyson health analyzer"
+	desc = "An advanced hand-held scanner with a medical nano AI built in. \
+	With the aid of the nano AI most users are capable of using this device for medical purposes, \
+	being capable of identifying every logged chemical known to GP. \
+	Uses medium cells and is slightly bulkier than a normal health scanner."
+	icon_state = "gp_health"
+	item_state = "analyzer"
+	flicker = "gp_health2"
+	extra_bulk = 2
+
+	advanced = TRUE
+	stat_locking = FALSE
+
+	//Do to being advanced you need more space to see all the information.
+	window_height = 650
+
+	suitable_cell = /obj/item/cell/medium
+	print_report_delay = 5
+	charge_per_use = 20
+	//Built in nano-AI costs + a lot more materal, this is high tech
+	matter = list(MATERIAL_PLASTIC = 12, MATERIAL_PLASTEEL = 7, MATERIAL_PLATINUM = 6, MATERIAL_SILVER = 2, MATERIAL_GOLD = 4, MATERIAL_DIAMOND = 2)
 
 /obj/item/device/scanner/health/afterattack(atom/A, mob/user, proximity)
 	if(user.stats?.getPerk(PERK_ADVANCED_MEDICAL) && user.stats.getStat(STAT_BIO) > STAT_LEVEL_EXPERT)
@@ -30,10 +56,10 @@
 	return istype(O, /mob/living) || istype(O, /obj/structure/closet/body_bag)
 
 /obj/item/device/scanner/health/scan(atom/A, mob/user)
-	scan_data = medical_scan_action(A, user, src, mode)
+	scan_data = medical_scan_action(A, user, src, mode, stat_locking, advanced)
 	scan_title = "Health scan - [A]"
 	show_results(user)
-	flick("health2", src)
+	flick("[flicker]", src)
 
 /obj/item/device/scanner/health/verb/toggle_mode()
 	set name = "Switch Verbosity"
@@ -46,22 +72,26 @@
 		if(0)
 			to_chat(usr, "The scanner no longer shows limb damage.")
 
-/proc/medical_scan_action(atom/target, mob/living/user, obj/scanner, var/mode)
+/proc/medical_scan_action(atom/target, mob/living/user, obj/scanner, mode, stat_locking = FALSE, advanced = FALSE)
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, SPAN_WARNING("You are not nimble enough to use this device."))
 		return
 
-	if(!user.stats?.getPerk(PERK_ADVANCED_MEDICAL) && !usr.stat_check(STAT_BIO, STAT_LEVEL_BASIC) && !usr.stat_check(STAT_COG, 30)) //Takes 15 bio so 30 cog
-		to_chat(usr, SPAN_WARNING("Your biological understanding isn't enough to use this."))
-		return
+	if(istype(scanner, /obj/item/device/scanner/health))
+		var/obj/item/device/scanner/health/health_scanner = scanner
+		if(health_scanner.stat_locking)
+			if(!user.stats?.getPerk(PERK_ADVANCED_MEDICAL) && !usr.stat_check(STAT_BIO, STAT_LEVEL_BASIC) && !usr.stat_check(STAT_COG, 30)) //Takes 15 bio so 30 cog
+				to_chat(usr, SPAN_WARNING("Your biological understanding isn't enough to use this."))
+				return
 
-	if ((CLUMSY in user.mutations) && prob(15))
-		. = list()
+	if(!advanced)
+		if ((CLUMSY in user.mutations) && prob(15))
+			. = list()
 
-		user.visible_message(SPAN_NOTICE("\The [user] runs \the [scanner] clumsily over the air, trying to scan something else!"))
-		. += span("highlight", "<b>Unknown Scan results:</b>")
-		. += span("highlight", "Overall Status: Unknown")
-		return jointext(., "<br>")
+			user.visible_message(SPAN_NOTICE("\The [user] runs \the [scanner] clumsily over the air, trying to scan something else!"))
+			. += span("highlight", "<b>Unknown Scan results:</b>")
+			. += span("highlight", "Overall Status: Unknown")
+			return jointext(., "<br>")
 
 	var/mob/living/carbon/human/scan_subject = null
 	if (istype(target, /mob/living/carbon/human))
@@ -91,11 +121,11 @@
 		return
 
 	user.visible_message(SPAN_NOTICE("[user] has analyzed [target]'s vitals."),SPAN_NOTICE("You have analyzed [target]'s vitals."))
-	. = medical_scan_results(scan_subject, mode)
+	. = medical_scan_results(scan_subject, mode, advanced)
 
 // Has to be living/carbon for the NSA check as metabolism_effects is inherent to them
 // Analyzers are meant to work only on humans (and monkeys) anyways so this virtually changes nothing.
-/proc/medical_scan_results(var/mob/living/carbon/M, var/mode)
+/proc/medical_scan_results(var/mob/living/carbon/M, var/mode, var/advanced = FALSE)
 	. = list()
 	var/dat = list()
 	if (!ishuman(M) || M.isSynthetic())
@@ -190,14 +220,30 @@
 				(org.status & ORGAN_BROKEN && !(org.status & ORGAN_SPLINTED)) ? "<font color='red'>\[Broken\]</font>" : "",
 				(org.status & ORGAN_INFECTED) ? "<font color='green'>\[Infected\]</font>" : "",
 				internal_wound_severity ? "<font color='red'>\[[internal_wound_severity] Organ Wounds\]</font>" : "")
+				if(advanced)
+					if(org.implants.len)
+						var/sharpnal_amount = 0
+						for(var/obj/item/material/shard/shrapnel/bullet_fragment in org.implants)
+							sharpnal_amount += 1
+						if(sharpnal_amount)
+							dat += text("<font color='#ff5050'>       -^-\[Detected Shrapnel Amount:[sharpnal_amount]\]</font>")
+					for(var/obj/item/organ/internal/IGS in org.internal_organs)
+						if(IGS.status & ORGAN_DEAD)
+							dat += text("<font color='#AAC8F2'>       -^-\[[IGS]: Dead\]</font>")
+							continue
+						if(IGS.damage)
+							dat += text("<font color='#ff5050'>       -^-\[[IGS]: [IGS.damage]/[IGS.max_damage] \]</font>")
+						if(IGS.status & ORGAN_BROKEN)
+							dat += text("<font color='#ff5050'>       -^-\[[IGS]: Broken\]</font>")
+
 		else
 			dat += span("highlight", "Limbs are OK.")
 		dat += "<hr>"
 
-	OX = M.getOxyLoss() > 50 ? 	 "<font color='#0080ff'><b>Severe oxygen deprivation detected</b></font>" 		: 	"Subject bloodstream oxygen level normal"
-	TX = tox_content > 12 ? 	 "<font color='green'><b>Dangerous amount of toxins detected</b></font>" 	: 	"Subject bloodstream toxin level minimal"
+	OX = M.getOxyLoss() > 50 ? 	 "<font color='#0080ff'><b>Severe oxygen deprivation detected</b></font>" 		: 	"Bloodstream oxygen level normal"
+	TX = tox_content > 12 ? 	 "<font color='green'><b>Dangerous amount of toxins detected</b></font>" 	: 	"Bloodstream toxin level minimal"
 	if(M.status_flags & FAKEDEATH)
-		OX = fake_oxy > 50 ? SPAN_WARNING("Severe oxygen deprivation detected") : "Subject bloodstream oxygen level normal"
+		OX = fake_oxy > 50 ? SPAN_WARNING("Severe oxygen deprivation detected") : "Bloodstream oxygen level normal"
 	dat += "[OX] | [TX] | [NSA]"
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -206,7 +252,7 @@
 			var/reagentdata[0]
 			for(var/A in C.reagents.reagent_list)
 				var/datum/reagent/R = A
-				if(R.scannable)
+				if(R.scannable || advanced) //Advanced scanners ALWAYS knows what the reagent is
 					reagentdata["[R.id]"] = span("highlight", "    [round(C.reagents.get_reagent_amount(R.id), 1)]u [R.name]")
 				else
 					unknown++
@@ -219,12 +265,12 @@
 		if(C.ingested && C.ingested.total_volume)
 			var/unknown = 0
 			for(var/datum/reagent/R in C.ingested.reagent_list)
-				if(R.scannable)
+				if(R.scannable || advanced) //Advanced scanners ALWAYS knows what the reagent is
 					dat += span("highlight", "[R.name] found in subject's stomach.")
 				else
 					++unknown
 			if(unknown)
-				dat += SPAN_WARNING("Non-medical reagent[(unknown > 1)?"s":""] found in subject's stomach.")
+				dat += SPAN_WARNING("Non-medical reagent[(unknown > 1)?"s":""] found in stomach.")
 	if (M.getCloneLoss())
 		dat += SPAN_WARNING("Subject appears to have cellular corruption.")
 	if (M.has_brain_worms())
