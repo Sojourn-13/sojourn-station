@@ -740,6 +740,17 @@
 /obj/item/ammo_casing/shotgun/biomatter/prespawned
 	amount = 5
 
+//Todo give this a cool animation
+/obj/item/ammo_casing/shotgun/relay
+	name = "GP relay shell"
+	desc = "A 20mm relay shot shell. \
+	A highly advanced AI controled bullet, plating in advanced materals and chemicals that are unable to be salvanged. \
+	When shot into a living or robotic target the bullet will relay a second projectile to the next closest target, this will repeat on succesful kills automatically."
+	icon_state = "relay-shell"
+	spent_icon = "relay-shell-spent"
+	shell_color = "i"
+	projectile_type = /obj/item/projectile/bullet/shotgun/relay
+	maxamount = 1
 
 //Can stun in one hit if aimed at the head, but
 //is blocked by clothing that stops tasers and is vulnerable to EMP

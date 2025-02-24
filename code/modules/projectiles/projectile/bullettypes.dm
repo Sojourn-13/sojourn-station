@@ -955,6 +955,83 @@
 	check_armour = ARMOR_BIO //duh.
 	recoil = 8//much less damage than slug, much less recoil.
 
+//Fancy ammo that is exspensive
+/obj/item/projectile/bullet/shotgun/relay
+	name = "greyson relay shot"
+	damage_types = list(BRUTE = 22)
+	armor_divisor = 8
+	wounding_mult = WOUNDING_NORMAL
+	penetrating = 0
+	can_ricochet = FALSE
+	embed = FALSE
+	sharp = FALSE
+	step_delay = 0.95
+	check_armour = ARMOR_BIO
+	recoil = 6
+	var/allow_relay = TRUE
+	serial_type_index_bullet = "GP"
+	var/faction_shooter
+
+/obj/item/projectile/bullet/shotgun/relay/gp_npc
+	faction_shooter = "greyson"
+
+//Relay a new shot!
+/obj/item/projectile/bullet/shotgun/relay/attack_mob(mob/living/target_mob, distance, miss_modifier=0)
+	//message_admins("health 1     [target_mob.health]")
+	//We need it here so that way if we gib the mob we still relay
+	var/enemy_turf = get_turf(target_mob)
+	. = ..()
+	//message_admins("health 2     [target_mob.health]")
+	if(!testing && allow_relay)
+		for(var/mob/living/M in view(5, enemy_turf)) //We base are view based on the turf to again allow non
+			if(M.stat == DEAD || M == target_mob)
+				continue
+			if(!enemy_turf)
+				continue
+
+			if(original_firer)
+				if(M.faction != original_firer.faction \
+				&& M.colony_friend != original_firer.colony_friend \
+				&& M.friendly_to_colony != original_firer.friendly_to_colony)
+
+					var/obj/item/projectile/bullet/shotgun/relay/relayed = new type(enemy_turf)
+
+					if(health >= 1)
+						//message_admins("dont relay")
+
+						relayed.allow_relay = FALSE
+
+					relayed.relay_shoting(M, original_firer)
+
+					//message_admins("health 4     [target_mob.health]")
+					break
+
+			if(faction_shooter)
+
+				if(M.faction != faction_shooter)
+
+					var/obj/item/projectile/bullet/shotgun/relay/relayed = new type(enemy_turf)
+
+					if(health >= 1)
+						//message_admins("dont relay")
+
+						relayed.allow_relay = FALSE
+
+					relayed.relay_shoting(M, original_firer)
+
+					//message_admins("health 4     [target_mob.health]")
+					break
+
+
+/obj/item/projectile/bullet/shotgun/relay/proc/relay_shoting(mob/living/target_mob, second_shooter)
+	layer = ABOVE_ALL_MOB_LAYER
+	def_zone = BP_CHEST
+	if(ismob(second_shooter))
+		original_firer = second_shooter
+		firer = second_shooter
+	else
+		faction_shooter = second_shooter
+	launch(target_mob)
 
 //Railgun
 /obj/item/projectile/bullet/shotgun/railgun

@@ -585,7 +585,8 @@ For the sake of consistency, I suggest always rounding up on even values when ap
 		if(istype(projectile, /obj/item/projectile))
 			var/obj/item/projectile/P = projectile
 			P.adjust_damages(proj_damage_adjust)
-			P.serial_type_index_bullet = serial_type
+			if(!P.serial_type_index_bullet == "")
+				P.serial_type_index_bullet = serial_type
 
 		if(pointblank)
 			process_point_blank(projectile, user, target)

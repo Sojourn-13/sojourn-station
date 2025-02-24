@@ -296,7 +296,7 @@ This monster is borderline unkillable and will make players upset
 
 /mob/living/carbon/superior/robot/gp/true_boss_data_star/bullet_act(obj/item/projectile/proj)
 	var/gp_questionmark = findtext(proj.serial_type_index_bullet, "GP")
-	if(gp_questionmark || proj.allow_greyson_mods)
+	if(gp_questionmark || proj.allow_greyson_mods || istype(proj, /obj/item/projectile/bullet/shotgun/relay))
 		data_count += 120
 		if(prob(15))
 			visible_message("<b><font color='#ffaa00'>Anti-Traitor Successfully Deployed, Data Collected.</font></b>")
