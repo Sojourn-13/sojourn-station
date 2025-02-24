@@ -47,6 +47,7 @@
 			to_chat(usr, "The scanner no longer shows limb damage.")
 
 /proc/medical_scan_action(atom/target, mob/living/user, obj/scanner, var/mode)
+	var/exsact_stats = FALSE
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, SPAN_WARNING("You are not nimble enough to use this device."))
 		return
@@ -54,6 +55,10 @@
 	if(!user.stats?.getPerk(PERK_ADVANCED_MEDICAL) && !usr.stat_check(STAT_BIO, STAT_LEVEL_BASIC) && !usr.stat_check(STAT_COG, 30)) //Takes 15 bio so 30 cog
 		to_chat(usr, SPAN_WARNING("Your biological understanding isn't enough to use this."))
 		return
+
+	if(user.stats?.getPerk(PERK_NO_OBFUSCATION) || user.stats?.getPerk(PERK_ADVANCED_MEDICAL))
+		exsact_stats = TRUE
+
 
 	if ((CLUMSY in user.mutations) && prob(15))
 		. = list()
@@ -91,11 +96,11 @@
 		return
 
 	user.visible_message(SPAN_NOTICE("[user] has analyzed [target]'s vitals."),SPAN_NOTICE("You have analyzed [target]'s vitals."))
-	. = medical_scan_results(scan_subject, mode)
+	. = medical_scan_results(scan_subject, mode, exsact_stats)
 
 // Has to be living/carbon for the NSA check as metabolism_effects is inherent to them
 // Analyzers are meant to work only on humans (and monkeys) anyways so this virtually changes nothing.
-/proc/medical_scan_results(var/mob/living/carbon/M, var/mode)
+/proc/medical_scan_results(var/mob/living/carbon/M, var/mode, exsact_numbers = FALSE)
 	. = list()
 	var/dat = list()
 	if (!ishuman(M) || M.isSynthetic())
@@ -111,11 +116,83 @@
 	var/mob/living/carbon/human/H = M
 
 	var/fake_oxy = max(rand(1, 40), M.getOxyLoss(), (300 - (M.getFireLoss() + M.getBruteLoss())))
-	var/tox_content = M.chem_effects[CE_TOXIN] + M.chem_effects[CE_ALCOHOL_TOXIC]
-	var/OX = M.getOxyLoss() > 50 	? 	"<b>[M.getOxyLoss()]</b>" 		: M.getOxyLoss()
-	var/TX = tox_content			?	"<b>[tox_content]</b>"			: (tox_content ? tox_content : "0")
-	var/BR = M.getBruteLoss() > 50 	? 	"<b>[M.getBruteLoss()]</b>" 	: M.getBruteLoss()
-	var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
+	var/tox_content = M.chem_effects[CE_TOXIN] + M.chem_effects[CE_ALCOHOL_TOXIC] + 0
+	var/OX = M.getOxyLoss()
+	var/TX = tox_content
+	var/BR = M.getBruteLoss()
+	var/BU = M.getFireLoss()
+
+	var/ox = OX
+	if(ox > 0 && !exsact_numbers)
+		if(ox >= 0)
+			OX = "Initial Hypoxia"
+		if(ox >= 50)
+			OX = "Moderate Hypoxia"
+		if(ox >= 75)
+			OX = "Severe Hypoxia"
+		if(ox >= 100)
+			OX = "Critical Hypoxia"
+		if(ox >= 125)
+			OX = "Terminal Hypoxia"
+	else
+		OX = "<b>[M.getOxyLoss()]</b>"
+
+	var/tx = TX
+	if(tx > 0 && !exsact_numbers)
+		if(tx > 0)
+			TX = "Initial Exposure"
+		if(tx >= 1)
+			TX = "Accumulating Toxins"
+		if(tx >= 2)
+			TX = "Systemic Toxicity"
+		if(tx >= 3)
+			TX = "Toxicosis"
+		if(tx >= 4)
+			TX = "Terminal Toxicosis"
+	else
+		TX = "<b>[tox_content]</b>"
+
+	var/br = BR
+	if(br > 0 && !exsact_numbers)
+		if(br > 0)
+			BR = "Minor"
+		if(br >= 25)
+			BR = "Light"
+		if(br >= 50)
+			BR = "Moderate"
+		if(br >= 75)
+			BR = "Severe"
+		if(br >= 100)
+			BR = "Critical Threshold"
+		if(br >= 125)
+			BR = "Critical State"
+		if(br >= 150)
+			BR = "Post-Critical State"
+		if(br >= 200)
+			BR = "Life-Threatening+"
+	else
+		BR = "<b>[M.getBruteLoss()]</b>"
+
+	var/bu = BU
+	if(bu > 0 && !exsact_numbers)
+		if(bu > 0)
+			BU = "Minor"
+		if(bu >= 25)
+			BU = "Light"
+		if(bu >= 50)
+			BU = "Moderate"
+		if(bu >= 75)
+			BU = "Severe"
+		if(bu >= 100)
+			BU = "Critical Threshold"
+		if(bu >= 125)
+			BU = "Critical State"
+		if(bu >= 150)
+			BU = "Post-Critical State"
+		if(bu >= 200)
+			BU = "Life-Threatening+"
+	else
+		BU = "<b>[M.getFireLoss()]</b>"
 
 	// Values are rounded because of nerve efficiency and damage, backgrounds,
 	// VIV stat changes, chems, and other variables that affect max NSA threshold.
@@ -170,6 +247,8 @@
 				var/brute_health = org.max_damage - org.brute_dam
 				var/burn_health = org.max_damage - org.burn_dam
 				var/internal_wound_severity = org.severity_internal_wounds
+				var/present_brute
+				var/present_burn
 
 				if(internal_wound_severity > 0)
 					if(internal_wound_severity < 4)
@@ -180,12 +259,46 @@
 						internal_wound_severity = "Severe"
 				else
 					internal_wound_severity = null
+				if(!exsact_numbers)
+					present_brute = org.brute_dam / org.max_damage
+					present_burn = org.burn_dam / org.max_damage
+					brute_health = 0
+					burn_health = 0
+					//Brute Stuff
+					if(present_brute > 0)
+						brute_health = "Minor"
+					if(present_brute >= 0.15)
+						brute_health = "Light"
+					if(present_brute >= 0.30)
+						brute_health = "Moderate"
+					if(present_brute >= 0.40)
+						brute_health = "Severe"
+					if(present_brute >= 0.75)
+						brute_health = "Critical Threshold"
+					if(present_brute >= 1.25)
+						brute_health = "Critical State"
+					//Burn stuff
+					if(present_burn > 0)
+						burn_health = "Minor"
+					if(present_burn >= 0.15)
+						burn_health = "Light"
+					if(present_burn >= 0.30)
+						burn_health = "Moderate"
+					if(present_burn >= 0.40)
+						burn_health = "Severe"
+					if(present_burn >= 0.75)
+						burn_health = "Critical Threshold"
+					if(present_burn >= 1.25)
+						burn_health = "Critical State"
+				if(exsact_numbers)
+					brute_health = "[org.brute_dam] / [org.max_damage]"
+					burn_health = "[org.burn_dam] / [org.max_damage]"
 
 				dat += text("<span class='highlight'>     [][]: [] -  [] - [] - [] [] []</span>",
 				capitalize(org.name),
 				(BP_IS_ROBOTIC(org)) ? "(Cybernetic)" : "",
-				"<font color='red'>[brute_health ? brute_health : "0"] / [org.max_damage]</font>",
-				"<font color='#FFA500'>[burn_health ? burn_health : "0"] / [org.max_damage]</font>",
+				"<font color='red'>[brute_health ? brute_health : "0"]</font>",
+				"<font color='#FFA500'>[burn_health ? burn_health : "0"]</font>",
 				(org.status & ORGAN_BLEEDING) ? "<font color='red'>\[Bleeding\]</font>" : "",
 				(org.status & ORGAN_BROKEN && !(org.status & ORGAN_SPLINTED)) ? "<font color='red'>\[Broken\]</font>" : "",
 				(org.status & ORGAN_INFECTED) ? "<font color='green'>\[Infected\]</font>" : "",
