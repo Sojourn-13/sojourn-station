@@ -241,7 +241,7 @@
 	name = "Research bulletin board"
 	desc = "A board containing vital notices and official memos for the Soteria research"
 	icon_state = "nboard00"
-	notices = 1
+	notices = 2
 
 /obj/structure/noticeboard/research/New()
 	var/obj/item/paper/P = new()
@@ -256,6 +256,34 @@
 	<li> Reseed the field. In case the field get removed completely, more crystals can be seeded with either 5 ameridian shard, or by splashing at least 10u of Liquid Ameridian on the floor.\
 	<li> Refine the shards. While Ameridian is valuable on its own, it's true value can only be used when refining it into Liquid Ameridian using an Ameridian Refinery, after which it can be further transformed into regular materials in the Liquid Ameridian Processor.\
 	<li> Carry the shards through the fence. Your body interfere with the Sonic Fence, allowing you to carry ameridian shards through the fence. The same cannot be said for dragged or thrown crystals, which will get destroyed on contact. Do not throw money away.</ol> "
+	P.add_overlay(list("paper_stamp-dots"))
+	P.stamped &= STAMP_FACTION
+	src.contents += P
+	update_icon()
+
+	P = new()
+	P.name = "Memo RE: Toxins Testing Value Index"
+	P.info = "Index Contents:<ol> \
+	<li> Shooting Targets: 5.\
+	<li> Machine Frames: 15 (17 If frame has wires or a circuitboard).\
+	<li> Any Flora (Not produce/trays): 2.\
+	<li> Compressed Cubes: 7.\
+	<li> Salvageable Machines: 60.\
+	<li> Modular Computer Consoles: 18.\
+	<li> Non-Modular Consoles: 17.\
+	<li> Filingcabinets: 30.\
+	<li> Metal Grilles: 2.\
+	<li> Barricades: 3.\
+	<li> Bookcases: 15.\
+	<li> Catwalks: 2.\
+	<li> Tables: 2.\
+	<li> Railing: 2 (5 if reinforced).\
+	<li> Beds and Chairs: 2.\
+	<li> Windows: Normal 2. Reinforced 3. Plasma 5 .Reinforced Plasma 10\
+	<li> Reagent Dispensers (Such as: Watercoolers, Welder Fuel Tanks, Beer Kegs): 25.\
+	<li> Lockers and Closets: 10.\
+	<li> Damaged Floors: N/A</ol><br>\
+	NOTE: The Watcher sees a max range of 8 tiles around it. If you use a bomb that has less then 16 Power it will match how far it scans to the round(Power/2) of the bomb used."
 	P.add_overlay(list("paper_stamp-dots"))
 	P.stamped &= STAMP_FACTION
 	src.contents += P
