@@ -103,6 +103,7 @@
 #define PERK_BLOOD_LUST /datum/perk/blood_lust
 #define PERK_NATURAL_STYLE /datum/perk/natural_style
 #define PERK_MAP_MAKER /datum/perk/map_maker
+#define PERK_NO_INSPIRO /datum/perk/no_inspiro
 
 #define PERK_REZ_SICKNESS /datum/perk/rezsickness
 #define PERK_REZ_SICKNESS_SEVERE /datum/perk/rezsickness/severe

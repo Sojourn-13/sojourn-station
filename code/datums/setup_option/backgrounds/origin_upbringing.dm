@@ -288,3 +288,21 @@
 		STAT_COG = 10,
 	)
 
+/datum/category_item/setup_option/background/bckgrnd/close_minded
+	name = "Close Minded"
+	desc = "You cannot be inspired, and as such, artistic pursuits are beyond you. Though what you have already learned, you can apply very well."
+	perks = list(PERK_NO_INSPIRO)
+
+	restricted_to_species = list(
+		FORM_HUMAN, FORM_EXALT_HUMAN, FORM_SABLEKYNE, FORM_KRIOSAN,
+		FORM_AKULA, FORM_MARQUA, FORM_NARAMAD, FORM_OPIFEX, FORM_CHTMANT,
+		FORM_CINDAR, FORM_SLIME, FORM_MYCUS, FORM_FOLKEN)
+
+	stat_modifiers = list(
+		STAT_ROB = 25,
+		STAT_TGH = 25,
+		STAT_VIG = 25,
+		STAT_BIO = 35,
+		STAT_MEC = 35,
+		STAT_COG = 35
+	)
