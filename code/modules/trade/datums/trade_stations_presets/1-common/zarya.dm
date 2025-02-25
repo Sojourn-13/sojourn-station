@@ -52,7 +52,8 @@
 			/obj/item/tool/omnitool,
 			/obj/item/device/geiger,
 			/obj/structure/reagent_dispensers/fueltank,
-			/obj/machinery/floodlight
+			/obj/machinery/floodlight,
+			/obj/item/device/floor_painter
 		)
 	)
 
