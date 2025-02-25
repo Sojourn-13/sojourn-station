@@ -73,6 +73,7 @@
 
 	if (detailed_account_view)
 		data["account_number"] = detailed_account_view.account_number
+		data["remote_access_pin"] = detailed_account_view.remote_access_pin
 		data["owner_name"] = detailed_account_view.owner_name
 		data["money"] = detailed_account_view.money
 		data["suspended"] = detailed_account_view.suspended
@@ -95,6 +96,7 @@
 		var/datum/money_account/D = all_money_accounts[i]
 		accounts.Add(list(list(\
 			"account_number"=D.account_number,\
+			"remote_access_pin"=D.remote_access_pin,\
 			"owner_name"=D.owner_name,\
 			"suspended"=D.suspended ? "SUSPENDED" : "",\
 			"account_index"=i)))
@@ -202,6 +204,7 @@
 					text = {"
 						[accounting_letterhead(title)]
 						<u>Holder:</u> [detailed_account_view.owner_name]<br>
+						<u>Account Pin:</u> [detailed_account_view.remote_access_pin]<br>
 						<u>Balance:</u> [detailed_account_view.money][CREDS]<br>
 						<u>Status:</u> [detailed_account_view.suspended ? "Suspended" : "Active"]<br>
 						<u>Transactions:</u> ([detailed_account_view.transaction_log.len])<br>
@@ -243,6 +246,7 @@
 							<thead>
 								<tr>
 									<td>Account Number</td>
+									<td>Account Remote Access Pin</td>
 									<td>Holder</td>
 									<td>Balance</td>
 									<td>Status</td>
@@ -256,6 +260,7 @@
 						text += {"
 								<tr>
 									<td>#[D.account_number]</td>
+									<td>#[D.remote_access_pin]</td>
 									<td>[D.owner_name]</td>
 									<td>[D.money][CREDS]</td>
 									<td>[D.suspended ? "Suspended" : "Active"]</td>
