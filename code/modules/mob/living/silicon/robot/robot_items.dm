@@ -771,17 +771,9 @@
 		/obj/item/reagent_containers/snacks/meat
 	)
 
-/obj/item/storage/bag/robotic/trash
+/obj/item/storage/bag/trash/big/robotic
 	name = "internal trash container"
 	desc = "An internalized trash container for gathering trash. Become a walking trash can, today!"
-	icon = 'icons/obj/janitor.dmi'
-	icon_state = "trashbag0"
-	item_state = "trashbag"
-	w_class = ITEM_SIZE_BULKY
-	max_storage_space = DEFAULT_BULKY_STORAGE * 2
-	max_w_class = ITEM_SIZE_SMALL
-	can_hold = list(/obj/item) //hacky fix maybe to let them pick up items
-	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/robotic/trash/autoload(mob/user as mob)
 	return //Prevent the trash bag from autoloading everything during movement, for sanity.
